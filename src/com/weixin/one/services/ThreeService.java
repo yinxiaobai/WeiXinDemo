@@ -10,7 +10,7 @@ import java.util.Map;
 public class ThreeService {
 	
 	public static void TextMessage(Map<String,String> map){
-		String FromUserName = map.get("FromUserName");
+		//String FromUserName = map.get("FromUserName");
 		
 	}
 }
