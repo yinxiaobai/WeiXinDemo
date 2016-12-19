@@ -17,6 +17,8 @@ import org.dom4j.io.SAXReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.thoughtworks.xstream.XStream;
+
 /**
  * @date 2016年12月19日下午2:10:00
  * @author hp
@@ -51,6 +53,7 @@ public class Tool {
 	}
 	
 	//将XML转换为Map
+	@SuppressWarnings("unchecked")
 	public static Map<String,String> xmlToMap(HttpServletRequest request){
 		
 		Map<String,String> map = new HashMap<String, String>();
@@ -60,7 +63,6 @@ public class Tool {
 			InputStream is = request.getInputStream();
 			Document doc = reader.read(is);
 			Element root = doc.getRootElement();
-			@SuppressWarnings("unchecked")
 			List<Element> list = root.elements();
 			for(Element e : list){
 				map.put(e.getName(), e.getText());
@@ -71,5 +73,19 @@ public class Tool {
 			log.error(e.getMessage(),e);
 		}
 		return map;
+	}
+	
+	/**
+	 * 将map转化为xml字符串
+	 * xiaobai
+	 * 2016年12月20日上午12:14:41
+	 * @param map
+	 * @return
+	 */
+	public static String MaptoXml(Object map){
+		XStream stream = new XStream();
+		stream.alias("xml", map.getClass());
+		String xml = stream.toXML(map);
+		return xml;
 	}
 }
