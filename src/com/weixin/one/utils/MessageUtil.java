@@ -12,7 +12,7 @@ public class MessageUtil {
      * 返回消息类型：文本 
      */  
     public static final String RESP_MESSAGE_TYPE_TEXT = "text";  
-  
+    							
     /** 
      * 返回消息类型：音乐 
      */  
