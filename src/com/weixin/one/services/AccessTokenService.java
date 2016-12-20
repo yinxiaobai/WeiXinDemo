@@ -16,9 +16,9 @@ import com.alibaba.fastjson.JSONObject;
  * @author hp
  * 
  */
-public class TwoService {
+public class AccessTokenService {
 	
-	private static final Logger log = LoggerFactory.getLogger(TwoService.class);
+	private static final Logger log = LoggerFactory.getLogger(AccessTokenService.class);
 
 	private static final String appid = "wxbba2bd6cd3833298";
 
@@ -86,5 +86,15 @@ public class TwoService {
 			throw new RuntimeException("【获取access_token失败】");
 		}
 		return access_token;
+	}
+	
+	public static void main(String[] args) {
+		log.info("start");
+		try {
+			String access_token = new AccessTokenService().getAccess_Token();
+			System.out.println(access_token);
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
+		}
 	}
 }
