@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.weixin.one.config.WeiConfig;
 import com.weixin.one.services.MessageService;
 import com.weixin.one.utils.MessageUtil;
 import com.weixin.one.utils.Tool;
@@ -30,12 +31,11 @@ public class Wei {
 
 	private static final Logger log = LoggerFactory.getLogger(Wei.class);
 
-	private static final String token = "ae8pvIDE8NzmMEcHvpcJPs7r";
-
 	@RequestMapping("/core")
 	public void oneTest(HttpServletRequest request, HttpServletResponse response) {
-
 		log.info("start...");
+		
+		WeiConfig.init();
 		
 		PrintWriter out = null;
 		try {
@@ -59,7 +59,7 @@ public class Wei {
 		// token验证
 		//if (!"".equals(signature)) {
 		if("GET".equalsIgnoreCase(method)){ //GET
-			String[] arr = new String[] { token, timestamp, nonce };
+			String[] arr = new String[] { WeiConfig.TOKEN, timestamp, nonce };
 			Arrays.sort(arr);
 			String str = Tool.SHA1(arr[0] + arr[1] + arr[2]);
 			if (!str.equals(signature)) {
@@ -91,7 +91,7 @@ public class Wei {
 				String xml = MessageService.TextMessage(map);
 				
 				//log.info(Tool.MaptoXml(map));
-				log.info("回复消息:"+xml);
+				log.debug("回复消息:"+xml);
 				out.println(xml);
 				out.flush();
 				break;

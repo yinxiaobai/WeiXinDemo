@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSONObject;
+import com.weixin.one.config.WeiConfig;
 
 /**
  * @date 2016年12月19日下午2:48:45
@@ -20,25 +21,20 @@ public class AccessTokenService {
 	
 	private static final Logger log = LoggerFactory.getLogger(AccessTokenService.class);
 
-	private static final String appid = "wxbba2bd6cd3833298";
+//	private static String appid = WeiConfig.APPID;
+//
+//	private static String secret = WeiConfig.SECRET;
+	
 
-	private static final String secret = "07c62fff8eb8a98e5547c6bb917e5f0f";
-
-	public URLConnection getConnect(String url,Object... obc){
-		
-		
-		return null;
-	}
-	
-	
-	
-	public String getAccess_Token() throws Exception {
-		String url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential";
+	@SuppressWarnings("unchecked")
+	public String getAccess_Token(){
+		WeiConfig.init();
+		String url = WeiConfig.ACCESS_TOKEN_URL;
 		String result = "";
 		BufferedReader in = null;
 		try {
-			String urlNameString = url + "&appid=" + appid + "&secret="
-					+ secret;
+			String urlNameString = url + "&appid=" + WeiConfig.APPID + "&secret="
+					+ WeiConfig.SECRET;
 			log.info("urlNameString:"+urlNameString);
 			URL realUrl = new URL(urlNameString);
 			// 打开和URL之间的连接
@@ -50,13 +46,6 @@ public class AccessTokenService {
 					"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
 			// 建立实际的连接
 			connection.connect();
-			
-			// 获取所有响应头字段
-			//Map<String, List<String>> map = connection.getHeaderFields();
-			// 遍历所有的响应头字段
-//			for (String key : map.keySet()) {
-//				System.out.println(key + "--->" + map.get(key));
-//			}
 			
 			// 定义 BufferedReader输入流来读取URL的响应
 			in = new BufferedReader(new InputStreamReader(
@@ -79,7 +68,6 @@ public class AccessTokenService {
 				e2.printStackTrace();
 			}
 		}
-		@SuppressWarnings("unchecked")
 		Map<String, String> map = JSONObject.parseObject(result,Map.class);
 		String access_token = map.get("access_token");
 		if("".equals(access_token) || access_token == null){
@@ -92,7 +80,7 @@ public class AccessTokenService {
 		log.info("start");
 		try {
 			String access_token = new AccessTokenService().getAccess_Token();
-			System.out.println(access_token);
+			log.info("access_token:"+access_token);
 		} catch (Exception e) {
 			log.error(e.getMessage(),e);
 		}
