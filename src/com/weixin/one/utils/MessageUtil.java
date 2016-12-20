@@ -12,7 +12,7 @@ public class MessageUtil {
      * 返回消息类型：文本 
      */  
     public static final String RESP_MESSAGE_TYPE_TEXT = "text";  
-  
+    							
     /** 
      * 返回消息类型：音乐 
      */  
@@ -32,6 +32,16 @@ public class MessageUtil {
      * 请求消息类型：图片 
      */  
     public static final String REQ_MESSAGE_TYPE_IMAGE = "image";  
+    
+    /** 
+     * 请求消息类型：视频
+     */  
+    public static final String REQ_MESSAGE_TYPE_VIDEO = "video";
+    
+    /** 
+     * 请求消息类型：小视频
+     */  
+    public static final String REQ_MESSAGE_TYPE_SHORTVIDEO = "shortvideo";
   
     /** 
      * 请求消息类型：链接 
@@ -49,7 +59,7 @@ public class MessageUtil {
     public static final String REQ_MESSAGE_TYPE_VOICE = "voice";  
   
     /** 
-     * 请求消息类型：推送 
+     * 请求消息类型：事件
      */  
     public static final String REQ_MESSAGE_TYPE_EVENT = "event";  
   

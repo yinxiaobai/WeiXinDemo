@@ -20,6 +20,7 @@ import org.slf4j.LoggerFactory;
 import com.thoughtworks.xstream.XStream;
 
 /**
+ * 工具类
  * @date 2016年12月19日下午2:10:00
  * @author hp
  *
@@ -28,6 +29,13 @@ public class Tool {
 	
 	private static final Logger log = LoggerFactory.getLogger(Tool.class);
 	
+	/**
+	 * SHA1加密
+	 * @date 2016年12月20日上午9:30:34
+	 * @param decript
+	 * @return
+	 * @author jq.yin@i-vpoints.com
+	 */
 	public static String SHA1(String decript) {
 		try {
 			MessageDigest digest = java.security.MessageDigest
@@ -52,7 +60,13 @@ public class Tool {
 		return "";
 	}
 	
-	//将XML转换为Map
+	/**
+	 * 将XML转换为Map
+	 * @date 2016年12月20日下午4:19:41
+	 * @param request
+	 * @return
+	 * @author jq.yin@i-vpoints.com
+	 */
 	@SuppressWarnings("unchecked")
 	public static Map<String,String> xmlToMap(HttpServletRequest request){
 		
@@ -76,16 +90,22 @@ public class Tool {
 	}
 	
 	/**
+	 * <未使用>
 	 * 将map转化为xml字符串
 	 * xiaobai
-	 * 2016年12月20日上午12:14:41
+	 * 2016年12月19日下午17:14:41
 	 * @param map
 	 * @return
 	 */
 	public static String MaptoXml(Object map){
-		XStream stream = new XStream();
-		stream.alias("xml", map.getClass());
-		String xml = stream.toXML(map);
-		return xml;
+		try {
+			XStream stream = new XStream();
+			stream.alias("xml", map.getClass());
+			String xml = stream.toXML(map);
+			return xml;
+		} catch (Exception e) {
+			log.info(e.getMessage(),e);
+		}
+		return null;
 	}
 }
