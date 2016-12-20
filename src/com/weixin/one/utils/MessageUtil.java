@@ -8,21 +8,8 @@ package com.weixin.one.utils;
  */
 public class MessageUtil {
 	
-	 /** 
-     * 返回消息类型：文本 
-     */  
-    public static final String RESP_MESSAGE_TYPE_TEXT = "text";  
-    							
-    /** 
-     * 返回消息类型：音乐 
-     */  
-    public static final String RESP_MESSAGE_TYPE_MUSIC = "music";  
-  
-    /** 
-     * 返回消息类型：图文 
-     */  
-    public static final String RESP_MESSAGE_TYPE_NEWS = "news";  
-  
+	 //FIXME
+	
     /** 
      * 请求消息类型：文本 
      */  
