@@ -25,6 +25,11 @@ public class WeiConfig {
 	public static String TOKEN;
 	public static String ACCESS_TOKEN_URL;
 	
+	/**
+	 * 加载配置
+	 * @date 2016年12月20日下午4:17:45
+	 * @author jq.yin@i-vpoints.com
+	 */
 	public static void init() {
 		
 		Resource resource = new ClassPathResource(PRO_NAME);

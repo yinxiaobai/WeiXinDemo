@@ -26,7 +26,8 @@ public class AccessTokenService {
 	
 
 	/**
-	 * 根据appid和secret获取access_token(access_token两小时一更新)
+	 * 根据appid和secret获取access_token
+	 * 	(access_token两小时一更新)
 	 * @date 2016年12月20日下午4:11:51
 	 * @author jq.yin@i-vpoints.com
 	 */

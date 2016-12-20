@@ -11,10 +11,10 @@ import java.util.Map;
 public class MessageService {
 	
 	/**
-	 * text类型处理
+	 * text类型消息处理
 	 * @date 2016年12月20日上午10:33:57
-	 * @param map
-	 * @return
+	 * @param map	接收到的微信端text类型消息集合
+	 * @return	需回复xml字符串
 	 * @author jq.yin@i-vpoints.com
 	 */
 	public static String TextMessage(Map<String,String> map){
@@ -27,6 +27,7 @@ public class MessageService {
 		
 		StringBuffer xml = new StringBuffer();
 		
+		// FIXME 手动拼接xml,待修改
 		xml.append("<xml><ToUserName><![CDATA[").append(ToUserName).append("]]></ToUserName>")
 		.append("<FromUserName><![CDATA[").append(FromUserName).append("]]></FromUserName>")
 		.append("<CreateTime>").append(CreateTime).append("</CreateTime>")

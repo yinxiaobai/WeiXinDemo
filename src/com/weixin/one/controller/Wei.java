@@ -31,6 +31,13 @@ public class Wei {
 
 	private static final Logger log = LoggerFactory.getLogger(Wei.class);
 
+	/**
+	 * 微信入口
+	 * @date 2016年12月20日下午4:18:01
+	 * @param request
+	 * @param response
+	 * @author jq.yin@i-vpoints.com
+	 */
 	@RequestMapping("/core")
 	public void oneTest(HttpServletRequest request, HttpServletResponse response) {
 		log.info("start...");
