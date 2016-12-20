@@ -18,7 +18,6 @@ import com.weixin.one.config.WeiConfig;
  * 
  */
 public class AccessTokenService {
-	
 	private static final Logger log = LoggerFactory.getLogger(AccessTokenService.class);
 
 //	private static String appid = WeiConfig.APPID;
@@ -26,6 +25,11 @@ public class AccessTokenService {
 //	private static String secret = WeiConfig.SECRET;
 	
 
+	/**
+	 * 根据appid和secret获取access_token(access_token两小时一更新)
+	 * @date 2016年12月20日下午4:11:51
+	 * @author jq.yin@i-vpoints.com
+	 */
 	@SuppressWarnings("unchecked")
 	public String getAccess_Token(){
 		WeiConfig.init();
