@@ -30,6 +30,10 @@ public class WeiConfig {
 	public static String ACCESS_TOKEN_URL;
 	//开发者微信号
 	public static String OPENID;
+	//腾讯地图Token
+	public static String MAP_TOKEN;
+	//腾讯地图坐标拾取器url
+	public static String MAP_URL;
 	
 	/**
 	 * 加载配置
@@ -42,10 +46,12 @@ public class WeiConfig {
 		try {
 			Properties pro = PropertiesLoaderUtils.loadProperties(resource);
 			APPID = (String) pro.get("weixin.appid");
-			SECRET = pro.getProperty("weixn.secret");
-			TOKEN = pro.getProperty("weixin.token");
-			OPENID = pro.getProperty("weixin.openid");
-			ACCESS_TOKEN_URL = pro.getProperty("access.token.url");
+			SECRET = pro.getProperty("weixn.secret","");
+			TOKEN = pro.getProperty("weixin.token","");
+			OPENID = pro.getProperty("weixin.openid","");
+			ACCESS_TOKEN_URL = pro.getProperty("access.token.url","");
+			MAP_TOKEN = pro.getProperty("mapToken","");
+			MAP_URL = pro.getProperty("mapUrl","");
 		} catch (IOException e) {
 			log.error("【配置文件读取出错】",e);
 		}

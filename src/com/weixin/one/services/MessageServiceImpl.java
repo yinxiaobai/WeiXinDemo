@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.weixin.one.utils.MessageUtil;
+import com.weixin.one.utils.ToMap;
 
 /**
  * @date 2016年12月19日下午5:17:52
@@ -157,6 +158,8 @@ public class MessageServiceImpl /* implements MessageService */{
 		String content = "你所在经度:"+locationY+" 纬度:"+locationX+",其余功能开发中...";
 		//发送文本消息
 		String xml = SendMessageService.sendText(toUserName, content);
+		String xy = locationX + "," +locationY;
+		ToMap.txMap(xy);
 		out.print(xml);
 		out.flush();
 	}
