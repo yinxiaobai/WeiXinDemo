@@ -1,6 +1,8 @@
 package com.weixin.one.services;
 
-import java.util.Date;
+import java.io.PrintWriter;
+
+
 import java.util.Map;
 
 /**
@@ -8,7 +10,7 @@ import java.util.Map;
  * @author hp
  *
  */
-public class MessageService {
+public interface MessageService {
 	
 	/**
 	 * text类型消息处理
@@ -17,24 +19,7 @@ public class MessageService {
 	 * @return	需回复xml字符串
 	 * @author jq.yin@i-vpoints.com
 	 */
-	public static String TextMessage(Map<String,String> map){
-		
-		String FromUserName = map.get("ToUserName");
-		String ToUserName = map.get("FromUserName");
-		String MsgType = map.get("MsgType");
-		String CreateTime = new Date().getTime() + "";
-		String Content = "呵呵";
-		
-		StringBuffer xml = new StringBuffer();
-		
-		// FIXME 手动拼接xml,待修改
-		xml.append("<xml><ToUserName><![CDATA[").append(ToUserName).append("]]></ToUserName>")
-		.append("<FromUserName><![CDATA[").append(FromUserName).append("]]></FromUserName>")
-		.append("<CreateTime>").append(CreateTime).append("</CreateTime>")
-		.append("<MsgType><![CDATA[").append(MsgType).append("]]></MsgType>")
-		.append("<Content><![CDATA[").append(Content).append("]]></Content>")
-		.append("</xml>");
-		
-		return xml.toString();
-	}
+	public String TextMessage(Map<String,String> map,PrintWriter out);
+	
+	
 }

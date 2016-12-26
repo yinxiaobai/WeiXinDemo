@@ -20,10 +20,16 @@ public class WeiConfig {
 	
 	private static final String PRO_NAME = "config.properties";
 	
+	//addid
 	public static String APPID;
+	//secret
 	public static String SECRET;
+	//token
 	public static String TOKEN;
+	//access_tonke获取地址
 	public static String ACCESS_TOKEN_URL;
+	//开发者微信号
+	public static String OPENID;
 	
 	/**
 	 * 加载配置
@@ -38,6 +44,7 @@ public class WeiConfig {
 			APPID = (String) pro.get("weixin.appid");
 			SECRET = pro.getProperty("weixn.secret");
 			TOKEN = pro.getProperty("weixin.token");
+			OPENID = pro.getProperty("weixin.openid");
 			ACCESS_TOKEN_URL = pro.getProperty("access.token.url");
 		} catch (IOException e) {
 			log.error("【配置文件读取出错】",e);

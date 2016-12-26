@@ -58,10 +58,10 @@ public class MessageUtil {
     /** 
      * 事件类型：unsubscribe(取消订阅) 
      */  
-    public static final String EVENT_TYPE_UNSUBSCRIBE = "unsubscribe";  
-  
+    public static final String EVENT_TYPE_UNSUBSCRIBE = "unsubscribe";
+    
     /** 
      * 事件类型：CLICK(自定义菜单点击事件) 
      */  
-    public static final String EVENT_TYPE_CLICK = "CLICK";  
+    public static final String EVENT_TYPE_CLICK = "CLICK";
 }

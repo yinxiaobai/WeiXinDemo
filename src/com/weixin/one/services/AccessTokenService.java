@@ -18,29 +18,25 @@ import com.weixin.one.config.WeiConfig;
  * 
  */
 public class AccessTokenService {
-	private static final Logger log = LoggerFactory.getLogger(AccessTokenService.class);
-
-//	private static String appid = WeiConfig.APPID;
-//
-//	private static String secret = WeiConfig.SECRET;
-	
+	private static final Logger log = LoggerFactory
+			.getLogger(AccessTokenService.class);
 
 	/**
-	 * 根据appid和secret获取access_token
-	 * 	(access_token两小时一更新)
+	 * 根据appid和secret获取access_token (access_token两小时一更新)
+	 * 
 	 * @date 2016年12月20日下午4:11:51
 	 * @author jq.yin@i-vpoints.com
 	 */
 	@SuppressWarnings("unchecked")
-	public String getAccess_Token(){
+	public String getAccess_Token() {
 		WeiConfig.init();
 		String url = WeiConfig.ACCESS_TOKEN_URL;
 		String result = "";
 		BufferedReader in = null;
 		try {
-			String urlNameString = url + "&appid=" + WeiConfig.APPID + "&secret="
-					+ WeiConfig.SECRET;
-			log.info("urlNameString:"+urlNameString);
+			String urlNameString = url + "&appid=" + WeiConfig.APPID
+					+ "&secret=" + WeiConfig.SECRET;
+			log.info("urlNameString:" + urlNameString);
 			URL realUrl = new URL(urlNameString);
 			// 打开和URL之间的连接
 			URLConnection connection = realUrl.openConnection();
@@ -51,7 +47,7 @@ public class AccessTokenService {
 					"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
 			// 建立实际的连接
 			connection.connect();
-			
+
 			// 定义 BufferedReader输入流来读取URL的响应
 			in = new BufferedReader(new InputStreamReader(
 					connection.getInputStream()));
@@ -73,21 +69,21 @@ public class AccessTokenService {
 				e2.printStackTrace();
 			}
 		}
-		Map<String, String> map = JSONObject.parseObject(result,Map.class);
+		Map<String, String> map = JSONObject.parseObject(result, Map.class);
 		String access_token = map.get("access_token");
-		if("".equals(access_token) || access_token == null){
+		if ("".equals(access_token) || access_token == null) {
 			throw new RuntimeException("【获取access_token失败】");
 		}
 		return access_token;
 	}
-	
+
 	public static void main(String[] args) {
 		log.info("start");
 		try {
 			String access_token = new AccessTokenService().getAccess_Token();
-			log.info("access_token:"+access_token);
+			log.info("access_token:" + access_token);
 		} catch (Exception e) {
-			log.error(e.getMessage(),e);
+			log.error(e.getMessage(), e);
 		}
 	}
 }
