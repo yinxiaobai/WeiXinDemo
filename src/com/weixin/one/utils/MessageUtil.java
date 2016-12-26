@@ -8,6 +8,7 @@ package com.weixin.one.utils;
  */
 public class MessageUtil {
 	
+<<<<<<< HEAD
 	 /** 
      * 返回消息类型：文本 
      */  
@@ -23,6 +24,10 @@ public class MessageUtil {
      */  
     public static final String RESP_MESSAGE_TYPE_NEWS = "news";  
   
+=======
+	 //FIXME
+	
+>>>>>>> ceea7bdc05b282f1a7b29ec4c0d37bf12fc22828
     /** 
      * 请求消息类型：文本 
      */  
@@ -71,10 +76,10 @@ public class MessageUtil {
     /** 
      * 事件类型：unsubscribe(取消订阅) 
      */  
-    public static final String EVENT_TYPE_UNSUBSCRIBE = "unsubscribe";  
-  
+    public static final String EVENT_TYPE_UNSUBSCRIBE = "unsubscribe";
+    
     /** 
      * 事件类型：CLICK(自定义菜单点击事件) 
      */  
-    public static final String EVENT_TYPE_CLICK = "CLICK";  
+    public static final String EVENT_TYPE_CLICK = "CLICK";
 }
