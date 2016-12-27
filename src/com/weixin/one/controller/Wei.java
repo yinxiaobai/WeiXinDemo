@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.weixin.one.config.WeiConfig;
-import com.weixin.one.services.MessageServiceImpl;
+import com.weixin.one.services.MessageService;
 import com.weixin.one.services.TokenSignService;
 import com.weixin.one.utils.Tool;
 
@@ -57,7 +57,7 @@ public class Wei {
 			log.info("收到微信端{}消息:"+msgMap.toString(),msgMap.get("MsgType"));
 			
 			//消息处理
-			MessageServiceImpl.getMessage(msgMap, response);
+			MessageService.getMessage(msgMap, response);
 			
 		}else{
 			// throw new RuntimeException("未知错误!!!");

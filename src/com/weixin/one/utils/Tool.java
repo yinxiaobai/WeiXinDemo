@@ -1,7 +1,10 @@
 package com.weixin.one.utils;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
@@ -17,20 +20,23 @@ import org.dom4j.io.SAXReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.alibaba.fastjson.JSONObject;
 import com.thoughtworks.xstream.XStream;
 
 /**
  * 工具类
+ * 
  * @date 2016年12月19日下午2:10:00
  * @author hp
- *
+ * 
  */
 public class Tool {
-	
+
 	private static final Logger log = LoggerFactory.getLogger(Tool.class);
-	
+
 	/**
 	 * SHA1加密
+	 * 
 	 * @date 2016年12月20日上午9:30:34
 	 * @param decript
 	 * @return
@@ -55,57 +61,79 @@ public class Tool {
 			return hexString.toString();
 
 		} catch (NoSuchAlgorithmException e) {
-			log.error(e.getMessage(),e);
+			log.error(e.getMessage(), e);
 		}
 		return "";
 	}
-	
+
 	/**
 	 * 将XML转换为Map
+	 * 
 	 * @date 2016年12月20日下午4:19:41
 	 * @param request
 	 * @return
 	 * @author jq.yin@i-vpoints.com
 	 */
 	@SuppressWarnings("unchecked")
-	public static Map<String,String> xmlToMap(HttpServletRequest request){
-		
-		Map<String,String> map = new HashMap<String, String>();
+	public static Map<String, String> xmlToMap(HttpServletRequest request) {
+
+		Map<String, String> map = new HashMap<String, String>();
 		SAXReader reader = new SAXReader();
-		
+
 		try {
 			InputStream is = request.getInputStream();
 			Document doc = reader.read(is);
 			Element root = doc.getRootElement();
 			List<Element> list = root.elements();
-			for(Element e : list){
+			for (Element e : list) {
 				map.put(e.getName(), e.getText());
 			}
 		} catch (IOException e) {
-			log.error(e.getMessage(),e);
+			log.error(e.getMessage(), e);
 		} catch (DocumentException e) {
-			log.error(e.getMessage(),e);
+			log.error(e.getMessage(), e);
 		}
 		return map;
 	}
-	
+
 	/**
-	 * <未使用>
-	 * 将map转化为xml字符串
-	 * xiaobai
-	 * 2016年12月19日下午17:14:41
+	 * <未使用> 将map转化为xml字符串 xiaobai 2016年12月19日下午17:14:41
+	 * 
 	 * @param map
 	 * @return
 	 */
-	public static String MaptoXml(Object map){
+	public static String MaptoXml(Object map) {
 		try {
 			XStream stream = new XStream();
 			stream.alias("xml", map.getClass());
 			String xml = stream.toXML(map);
 			return xml;
 		} catch (Exception e) {
-			log.info(e.getMessage(),e);
+			log.info(e.getMessage(), e);
 		}
 		return null;
+	}
+
+	/**
+	 * get请求方法
+	 * 
+	 * @date 2016年12月27日上午11:14:14
+	 * @param urlStr
+	 * @return 返回的JSONObject对象
+	 * @author jq.yin@i-vpoints.com
+	 * @throws IOException
+	 */
+	public static JSONObject urlGet(String urlStr) throws IOException {
+		JSONObject jsonObject = null;
+		URL url = new URL(urlStr);
+		BufferedReader br = new BufferedReader(new InputStreamReader(
+				url.openStream()));
+		String line;
+		StringBuffer sb = new StringBuffer();
+		while ((line = br.readLine()) != null) {
+			sb.append(line);
+		}
+		jsonObject = (JSONObject) JSONObject.parse(sb.toString());
+		return jsonObject;
 	}
 }
