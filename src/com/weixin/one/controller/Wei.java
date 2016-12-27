@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.weixin.one.config.WeiConfig;
-import com.weixin.one.services.MessageService;
+import com.weixin.one.services.ReceiveService;
 import com.weixin.one.services.TokenSignService;
 import com.weixin.one.utils.Tool;
 
@@ -25,41 +25,43 @@ import com.weixin.one.utils.Tool;
 @Controller
 @RequestMapping("/Wei")
 public class Wei {
-	
+
 	private static final Logger log = LoggerFactory.getLogger(Wei.class);
 
 	/**
 	 * 微信唯一入口
+	 * 
 	 * @date 2016年12月20日下午4:18:01
 	 * @param request
 	 * @param response
 	 * @author jq.yin@i-vpoints.com
 	 */
 	@RequestMapping("/core")
-	public void coreReceive(HttpServletRequest request, HttpServletResponse response) {
+	public void coreReceive(HttpServletRequest request,
+			HttpServletResponse response) {
 		log.info("start...");
-		
-		//加载配置
+
+		// 加载配置
 		WeiConfig.init();
-		//请求方式
+		// 请求方式
 		String method = request.getMethod();
-		if("GET".equalsIgnoreCase(method)){ //GET,表示微信token验证
+		if ("GET".equalsIgnoreCase(method)) { // GET,表示微信token验证
 			try {
 				TokenSignService.sign(request, response);
 			} catch (Exception e) {
-				//Token验证失败
-				log.info(e.getMessage(),e);
+				// Token验证失败
+				log.error(e.getMessage(), e);
 			}
-		}else if(method.equalsIgnoreCase("POST")){	//POST,消息交互
-			//接收微信消息
+		} else if (method.equalsIgnoreCase("POST")) {	// POST,消息交互
+			// 接收微信消息
 			Map<String, String> msgMap = Tool.xmlToMap(request);
-			
-			log.info("收到微信端{}消息:"+msgMap.toString(),msgMap.get("MsgType"));
-			
-			//消息处理
-			MessageService.getMessage(msgMap, response);
-			
-		}else{
+
+			log.info("收到微信端{}消息:" + msgMap.toString(), msgMap.get("MsgType"));
+
+			// 消息处理
+			ReceiveService.getMessage(msgMap, response);
+
+		} else {
 			// throw new RuntimeException("未知错误!!!");
 			log.error("未知异常!");
 		}

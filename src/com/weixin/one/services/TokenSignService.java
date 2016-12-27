@@ -38,7 +38,7 @@ public class TokenSignService {
 
 		PrintWriter out = null;
 		try {
-			
+
 			out = response.getWriter();
 
 			String signature = request.getParameter("signature") == null ? ""
@@ -53,7 +53,7 @@ public class TokenSignService {
 			String[] arr = new String[] { WeiConfig.TOKEN, timestamp, nonce };
 			Arrays.sort(arr);
 			String str = Tool.SHA1(arr[0] + arr[1] + arr[2]);
-			if (str.equals(signature)) {
+			if (!str.equals(signature)) {
 				log.info("【TOKEN验证失败】");
 				throw new RuntimeException("Token验证失败");
 			}

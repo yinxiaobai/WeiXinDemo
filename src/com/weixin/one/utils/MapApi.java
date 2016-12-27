@@ -40,13 +40,14 @@ public class MapApi {
 		String key = WeiConfig.MAP_TOKEN;
 		String urlName = url + "?location=" + xy + "&key=" + key;
 		try {
-			//TODO 结果为多层json
+			// TODO 结果为多层json
 			JSONObject json = Tool.urlGet(urlName);
 			JSONObject json2 = (JSONObject) json.get("result");
 			JSONObject json3 = (JSONObject) json2.get("ad_info");
 			@SuppressWarnings("unchecked")
-			Map<String,String> map = (Map<String,String>) json2.get("ad_info");
-			log.info("map:"+map.toString());
+			Map<String, String> map = (Map<String, String>) json2
+					.get("ad_info");
+			log.info("map:" + map.toString());
 			log.info(json.getString("result"));
 			log.info(json2.getString("ad_info"));
 		} catch (MalformedURLException e) {
@@ -57,9 +58,9 @@ public class MapApi {
 	}
 
 	/**
-	 * 百度地图根据x,y获取天气信息 
-	 * 此xy信息由腾讯地图获得,由于百度和腾讯的xy获取方式不同,需要对xy进行一定转化 
-	 * 百度地图获取为百度坐标 
+	 * 百度地图根据x,y获取天气信息
+	 * 此xy信息由腾讯地图获得,由于百度和腾讯的xy获取方式不同,需要对xy进行一定转化
+	 * 百度地图获取为百度坐标
 	 * //TODO
 	 * xiaobai 2016年12月26日下午10:48:34
 	 * 
@@ -69,6 +70,7 @@ public class MapApi {
 	 *            经度
 	 */
 	public static void bdMap(String locationX, String locationY) {
+
 		String xy = locationX + "," + locationY;
 		String ak = "bNkpbjgApS7MO90oDUag1hHW9ukG6wfG";
 		String url = "http://api.map.baidu.com/telematics/v3/weather";
@@ -89,8 +91,8 @@ public class MapApi {
 	}
 
 	/**
-	 * 心知天气  
-	 * 		<br>返回信息较少，需手动坐标转换 GPS坐标
+	 * 心知天气 <br>
+	 * 返回信息较少，需手动坐标转换 GPS坐标
 	 * 
 	 * @date 2016年12月27日上午10:35:43
 	 * @param locationX
