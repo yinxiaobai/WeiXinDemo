@@ -49,7 +49,7 @@ public class MessageService {
 		switch (msg) {
 		case "create":
 			// 创建自定义菜单
-			result = MenuService.createMenu(null);
+			result = MenuService.createMenu();
 			jsonObject = (JSONObject) JSONObject.parse(result);
 			if ("0".equals(jsonObject.getString("errcode"))) {
 				content = "创建自定义菜单成功";

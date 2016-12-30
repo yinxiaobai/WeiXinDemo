@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @RequestMapping("/manage")
 public class Manage {
+	
 	/**
 	 * TODO
 	 * 自定义菜单操作
