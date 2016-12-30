@@ -1,4 +1,4 @@
-package com.weixin.one.services;
+package com.weixin.one.services.message;
 
 import java.util.Date;
 

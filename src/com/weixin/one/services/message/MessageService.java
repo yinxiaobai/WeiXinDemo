@@ -1,4 +1,4 @@
-package com.weixin.one.services;
+package com.weixin.one.services.message;
 
 import java.io.PrintWriter;
 import java.util.Map;
@@ -6,6 +6,8 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.alibaba.fastjson.JSONObject;
+import com.weixin.one.services.menu.MenuService;
 import com.weixin.one.utils.MapApi;
 import com.weixin.one.utils.MessageUtil;
 
@@ -41,7 +43,37 @@ public class MessageService {
 		// FIXME 公众号开发者(申请人)微信号,唯一
 		String fromUserName = map.get("ToUserName");
 		String content = "二姐不是最帅(此条五毛)【杜攀让改的】【杜攀说他是二狗子】";
-
+		content = "杜攀你傻逼啊";
+		String result = null;
+		JSONObject jsonObject = null;
+		switch (msg) {
+		case "create":
+			// 创建自定义菜单
+			result = MenuService.createMenu(null);
+			jsonObject = (JSONObject) JSONObject.parse(result);
+			if ("0".equals(jsonObject.getString("errcode"))) {
+				content = "创建自定义菜单成功";
+			} else {
+				content = "创建自定义菜单失败\n" + "errcode:"
+						+ jsonObject.getString("errcode") + "\n" + "errmsg:"
+						+ jsonObject.getString("errmsg");
+			}
+			break;
+		case "delete":
+			// 删除自定义菜单
+			result = MenuService.deleteMenu();
+			jsonObject = (JSONObject) JSONObject.parse(result);
+			if ("0".equals(jsonObject.getString("errcode"))) {
+				content = "删除自定义菜单成功";
+			} else {
+				content = "删除自定义菜单失败\n" + "errcode:"
+						+ jsonObject.getString("errcode") + "\n" + "errmsg:"
+						+ jsonObject.getString("errmsg");
+			}
+			break;
+		default:
+			break;
+		}
 		// 回复文本消息
 		String xml = SendMessageService.sendText(toUserName, fromUserName,
 				content);
@@ -103,7 +135,7 @@ public class MessageService {
 		String content = "你所在经度:" + locationY + " 纬度:" + locationX + ","
 				+ "当前天气状况:" + weatherMap.get("temperature") + "C，"
 				+ weatherMap.get("text") + "。。。。。。";
-
+		MapApi.txMap(locationX, locationY);
 		// 发送文本消息
 		String xml = SendMessageService.sendText(toUserName, fromUserName,
 				content);

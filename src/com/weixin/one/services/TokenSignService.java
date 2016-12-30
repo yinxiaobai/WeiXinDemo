@@ -50,7 +50,11 @@ public class TokenSignService {
 			String echostr = request.getParameter("echostr") == null ? ""
 					: request.getParameter("echostr");
 
-			String[] arr = new String[] { WeiConfig.TOKEN, timestamp, nonce };
+			String[] arr = new String[] { WeiConfig.get("weixin.token"), timestamp, nonce };
+			//将数组转换为小写
+			for(int i=0;i<arr.length;i++){
+				arr[i] = arr[i].toLowerCase();
+			}
 			Arrays.sort(arr);
 			String str = Tool.SHA1(arr[0] + arr[1] + arr[2]);
 			if (!str.equals(signature)) {
