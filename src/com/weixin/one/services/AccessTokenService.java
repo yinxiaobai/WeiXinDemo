@@ -41,7 +41,7 @@ public class AccessTokenService {
 				+ WeiConfig.get("weixn.secret");
 		log.info("urlName{}", urlName);
 		// 通过URL发送get请求
-		String result = Tool.urlGet(urlName);//Tool.urlGet(urlNameString);
+		String result = Tool.urlGet(urlName);
 		@SuppressWarnings("unchecked")
 		Map<String, String> map = JSONObject.parseObject(result, Map.class);
 		log.info("获取access_token成功");
