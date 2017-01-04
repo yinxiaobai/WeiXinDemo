@@ -35,7 +35,6 @@ public class CoreWei {
 	public void coreReceive(HttpServletRequest request,
 			HttpServletResponse response) {
 		log.info("start...");
-
 		// 请求处理
 		CoreService.messageDo(request, response);
 	}

@@ -39,16 +39,17 @@ public class AccessTokenService {
 		String urlName = url + "&appid="
 				+ WeiConfig.get("weixin.appid") + "&secret="
 				+ WeiConfig.get("weixn.secret");
-		log.info("urlName{}", urlName);
 		// 通过URL发送get请求
 		String result = Tool.urlGet(urlName);
 		@SuppressWarnings("unchecked")
 		Map<String, String> map = JSONObject.parseObject(result, Map.class);
-		log.info("获取access_token成功");
+		// 有效时间 单位:s
 		access_token = map.get("access_token");
 		if ("".equals(access_token) || access_token == null) {
 			throw new RuntimeException("【获取access_token失败】");
 		}
+		log.info("获取access_token成功");
+		log.info("凭证有效时间{}s",map.get("expires_in"));
 	}
 	
 	public static String getAccess_token() {

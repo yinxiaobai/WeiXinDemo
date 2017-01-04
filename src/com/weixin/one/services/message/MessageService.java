@@ -1,6 +1,7 @@
 package com.weixin.one.services.message;
 
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -8,6 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSONObject;
 import com.weixin.one.services.menu.MenuService;
+import com.weixin.one.services.qrcode.CreateTicket;
 import com.weixin.one.utils.MapApi;
 import com.weixin.one.utils.MessageUtil;
 
@@ -71,7 +73,21 @@ public class MessageService {
 						+ jsonObject.getString("errmsg");
 			}
 			break;
-		default:
+		case "get":
+			result = MenuService.getMenu();
+			content = result;
+			break;
+		case "ticket":
+			Map<String,String> ticketMap = new HashMap<String, String>();
+			// 有效期，单位:s	默认30s
+			ticketMap.put("expire_seconds", "50");
+			// QR_SCENE临时二维码	QR_LIMIT_SCENE永久二维码	QR_LIMIT_STR_SCENE永久字符串参数值
+			ticketMap.put("action_name", "QR_LIMIT_STR_SCENE");
+			// 场景值ID,整形
+			ticketMap.put("scene_id", "0556");
+			// 场景值ID,字符串型,仅永久二维码存在
+			ticketMap.put("scene_str", "这将是一个二维码");
+			CreateTicket.createTicket(ticketMap);
 			break;
 		}
 		// 回复文本消息

@@ -37,7 +37,7 @@ public class WeiConfig {
 	 * @date 2016年12月20日下午4:17:45
 	 * @author jq.yin@i-vpoints.com
 	 */
-	@PostConstruct
+	@PostConstruct //启动项目自动加载
 	public static void init() {
 		log.info("。。。加载配置");
 		Resource resource = new ClassPathResource(PRO_NAME);
@@ -48,6 +48,7 @@ public class WeiConfig {
 		}
 		
 		//启动定时器
+		log.info("定时器启动");
 		new Timer().schedule(new TimerTask() {
 			
 			@Override
