@@ -29,7 +29,6 @@ public class WeiConfig {
 	private static final String PRO_NAME = "config.properties";
 
 	public static Properties pro;
-
 	/**
 	 * 加载配置
 	 * 服务器启动时自动加载

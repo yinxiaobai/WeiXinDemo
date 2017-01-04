@@ -30,33 +30,35 @@ public class CreateTicket {
 		String action_name = map.get("action_name");
 		String param = null;
 		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("expire_seconds", map.get("expire_seconds"));
+		jsonObject.put("action_name",action_name);
+		JSONObject jsonObject2 = new JSONObject();
+		JSONObject jsonObject3 = new JSONObject();
 		switch (action_name){
 		case "QR_SCENE" :	//临时二维码
 		case "QR_LIMIT_SCENE":	//永久二维码
-			jsonObject.put("expire_seconds", map.get("expire_seconds"));
-			jsonObject.put("action_name",map.get("action_name"));
-			JSONObject jsonObject2 = new JSONObject();
 			jsonObject2.put("scene_id", map.get("scene_id"));
-			JSONObject jsonObject3 = new JSONObject();
 			jsonObject3.put("scene", jsonObject2);
 			jsonObject.put("action_info", jsonObject3);
 			param = jsonObject.toJSONString();
 			break;
 		case "QR_LIMIT_STR_SCENE":	//永久的字符串参数值
-			jsonObject.put("expire_seconds", map.get("expire_seconds"));
-			jsonObject.put("action_name",map.get("action_name"));
-			JSONObject jsonObject21 = new JSONObject();
-			jsonObject21.put("scene_id", map.get("scene_str"));
-			JSONObject jsonObject32 = new JSONObject();
-			jsonObject32.put("scene", jsonObject21);
-			jsonObject.put("action_info", jsonObject32);
+//			jsonObject.put("expire_seconds", map.get("expire_seconds"));
+//			jsonObject.put("action_name",action_name);
+//			JSONObject jsonObject21 = new JSONObject();
+			jsonObject2.put("scene_str", map.get("scene_str"));
+//			JSONObject jsonObject32 = new JSONObject();
+			jsonObject3.put("scene", jsonObject2);
+			jsonObject.put("action_info", jsonObject3);
 			param = jsonObject.toJSONString();
 			break;
 		}
 		log.info("param:{}",param);
 		String result = Tool.sendPost(url, param);
-		
 		log.info(result);
-		
+		JSONObject object = JSONObject.parseObject(result);
+		String ticket = object.getString("ticket");
+		String getUrl = object.getString("url");
+		log.info("ticket:{},url:{}",ticket,getUrl);
 	}
 }

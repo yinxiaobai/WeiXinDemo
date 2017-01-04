@@ -60,7 +60,7 @@ public class MenuService {
 							+ "}]"
 						+ "}]"
 						+ "}";
-		String result = Tool.sendPost(url, param);
+		String result = Tool.sendHttpPost(url, param);
 		log.info(result);
 		return result;
 	}
@@ -68,7 +68,6 @@ public class MenuService {
 	public static String createMenu(){
 		log.info("【开始创建自定义菜单】");
 		String url = WeiConfig.get("create_menu.url") + AccessTokenService.getAccess_token();
-		log.info(url);
 		// 请求参数
 		// TODO
 		/*String param = " {"
@@ -137,6 +136,7 @@ public class MenuService {
 							+ "]"
 						+ "}"
 						+ "]}";
+		// String result = Tool.sendPost(url, param);
 		String result = Tool.sendPost(url, param);
 		log.info(result);
 		return result;

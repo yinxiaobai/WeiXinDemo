@@ -40,7 +40,8 @@ public class AccessTokenService {
 				+ WeiConfig.get("weixin.appid") + "&secret="
 				+ WeiConfig.get("weixn.secret");
 		// 通过URL发送get请求
-		String result = Tool.urlGet(urlName);
+//		String result = Tool.urlGet(urlName);
+		String result = Tool.sendGet(urlName);
 		@SuppressWarnings("unchecked")
 		Map<String, String> map = JSONObject.parseObject(result, Map.class);
 		// 有效时间 单位:s

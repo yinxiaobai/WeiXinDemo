@@ -80,9 +80,9 @@ public class MessageService {
 		case "ticket":
 			Map<String,String> ticketMap = new HashMap<String, String>();
 			// 有效期，单位:s	默认30s
-			ticketMap.put("expire_seconds", "50");
+			ticketMap.put("expire_seconds", "5000");
 			// QR_SCENE临时二维码	QR_LIMIT_SCENE永久二维码	QR_LIMIT_STR_SCENE永久字符串参数值
-			ticketMap.put("action_name", "QR_LIMIT_STR_SCENE");
+			ticketMap.put("action_name", "QR_LIMIT_SCENE");
 			// 场景值ID,整形
 			ticketMap.put("scene_id", "0556");
 			// 场景值ID,字符串型,仅永久二维码存在
@@ -149,7 +149,7 @@ public class MessageService {
 		Map<String, String> weatherMap = MapApi.xzWeather(locationX, locationY);
 		log.info("所在位置纬度{},经度{}", locationX, locationY);
 		String content = "你所在经度:" + locationY + " 纬度:" + locationX + ","
-				+ "当前天气状况:" + weatherMap.get("temperature") + "C，"
+				+ "当前实时天气状况:" + weatherMap.get("temperature") + "C,"
 				+ weatherMap.get("text") + "。。。。。。";
 		MapApi.txMap(locationX, locationY);
 		// 发送文本消息
