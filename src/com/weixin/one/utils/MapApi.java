@@ -42,7 +42,7 @@ public class MapApi {
 		String key = WeiConfig.get("mapToken");
 		String urlName = url + "?location=" + xy + "&key=" + key;
 		// TODO 结果为多层json
-		String result = Tool.urlGet(urlName);
+		String result = UrlUtils.urlGet(urlName);
 		JSONObject json = (JSONObject) JSONObject.parse(result);
 		JSONObject json2 = (JSONObject) json.get("result");
 		JSONObject json3 = (JSONObject) json2.get("ad_info");
@@ -77,7 +77,7 @@ public class MapApi {
 		// location参数需要进行处理,由腾讯地图获得的xy在这里不能使用。。
 		String urlName = url + "?location=" + xy + "&output=" + "json" + "&ak="
 				+ ak; // 无结果
-		String result = Tool.urlGet(urlName);
+		String result = UrlUtils.urlGet(urlName);
 		JSONObject json = (JSONObject) JSONObject.parse(result);
 		log.info(json.toJSONString());
 	}
@@ -103,7 +103,7 @@ public class MapApi {
 		String urlName = url + "?key=" + key + "&location=" + xy;
 		Map<String, String> map = null;
 
-		String result = Tool.urlGet(urlName);
+		String result = UrlUtils.urlGet(urlName);
 		JSONObject json = (JSONObject) JSONObject.parse(result);
 
 		String results = json.getString("results").substring(1,

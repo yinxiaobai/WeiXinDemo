@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import com.alibaba.fastjson.JSONObject;
 import com.weixin.one.config.WeiConfig;
 import com.weixin.one.services.AccessTokenService;
-import com.weixin.one.utils.Tool;
+import com.weixin.one.utils.UrlUtils;
 
 /**
  * FIXME
@@ -60,7 +60,7 @@ public class MenuService {
 							+ "}]"
 						+ "}]"
 						+ "}";
-		String result = Tool.sendHttpPost(url, param);
+		String result = UrlUtils.sendHttpPost(url, param);
 		log.info(result);
 		return result;
 	}
@@ -137,7 +137,7 @@ public class MenuService {
 						+ "}"
 						+ "]}";
 		// String result = Tool.sendPost(url, param);
-		String result = Tool.sendPost(url, param);
+		String result = UrlUtils.sendPost(url, param);
 		log.info(result);
 		return result;
 	}
@@ -150,7 +150,7 @@ public class MenuService {
 	 */
 	public static String deleteMenu (){
 		String url = WeiConfig.get("delete_menu.url") + AccessTokenService.getAccess_token();
-		String result = Tool.urlGet(url);
+		String result = UrlUtils.urlGet(url);
 		log.info(result);
 		return result;
 	}
@@ -163,7 +163,7 @@ public class MenuService {
 	 */
 	public static String getMenu(){
 		String url = WeiConfig.get("get_menu.url") + AccessTokenService.getAccess_token();
-		String result = Tool.urlGet(url);
+		String result = UrlUtils.urlGet(url);
 		log.info(result);
 		return result;
 	}

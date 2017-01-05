@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import com.alibaba.fastjson.JSONObject;
 import com.weixin.one.config.WeiConfig;
 import com.weixin.one.services.AccessTokenService;
-import com.weixin.one.utils.Tool;
+import com.weixin.one.utils.UrlUtils;
 
 /**
  * @date 2017年1月3日下午3:56:24
@@ -54,7 +54,7 @@ public class CreateTicket {
 			break;
 		}
 		log.info("param:{}",param);
-		String result = Tool.sendPost(url, param);
+		String result = UrlUtils.sendPost(url, param);
 		log.info(result);
 		JSONObject object = JSONObject.parseObject(result);
 		String ticket = object.getString("ticket");

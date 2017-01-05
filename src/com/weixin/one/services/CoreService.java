@@ -21,7 +21,7 @@ import com.weixin.one.utils.Tool;
 public class CoreService {
 
 	private static final Logger log = LoggerFactory.getLogger(CoreService.class);
-
+	
 	/**
 	 * 微信端请求处理
 	 * @date 2016年12月28日上午9:30:55
@@ -44,9 +44,7 @@ public class CoreService {
 		} else if (method.equalsIgnoreCase("POST")) {	// POST,消息交互
 			// 接收微信消息
 			Map<String, String> msgMap = Tool.receiveMessage(request);
-
-			log.info("收到微信端{}消息:" + msgMap.toString(), msgMap.get("MsgType"));
-
+			log.info("收到微信端{}消息:{}", msgMap.get("MsgType"), msgMap.toString());
 			// 消息处理
 			ReceiveService.getMessage(msgMap, response);
 

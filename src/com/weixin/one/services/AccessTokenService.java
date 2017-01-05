@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSONObject;
 import com.weixin.one.config.WeiConfig;
-import com.weixin.one.utils.Tool;
+import com.weixin.one.utils.UrlUtils;
 
 /**
  * access_token获取
@@ -41,7 +41,7 @@ public class AccessTokenService {
 				+ WeiConfig.get("weixn.secret");
 		// 通过URL发送get请求
 //		String result = Tool.urlGet(urlName);
-		String result = Tool.sendGet(urlName);
+		String result = UrlUtils.sendGet(urlName);
 		@SuppressWarnings("unchecked")
 		Map<String, String> map = JSONObject.parseObject(result, Map.class);
 		// 有效时间 单位:s

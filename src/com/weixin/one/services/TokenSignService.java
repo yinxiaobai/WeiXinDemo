@@ -38,27 +38,22 @@ public class TokenSignService {
 
 		PrintWriter out = null;
 		try {
-
 			out = response.getWriter();
 
 			String signature = request.getParameter("signature") == null ? ""
 					: request.getParameter("signature");
 			String timestamp = request.getParameter("timestamp") == null ? ""
 					: request.getParameter("timestamp");
-			String nonce = request.getParameter("nonce") == null ? "" : request
-					.getParameter("nonce");
+			String nonce = request.getParameter("nonce") == null ? ""
+					: request.getParameter("nonce");
 			String echostr = request.getParameter("echostr") == null ? ""
 					: request.getParameter("echostr");
 
-			String[] arr = new String[] { WeiConfig.get("weixin.token"), timestamp, nonce };
-			//将数组转换为小写
-			for(int i=0;i<arr.length;i++){
-				arr[i] = arr[i].toLowerCase();
-			}
+			String[] arr = new String[] { WeiConfig.get("weixin.token"),
+					timestamp, nonce };
 			Arrays.sort(arr);
 			String str = Tool.SHA1(arr[0] + arr[1] + arr[2]);
 			if (!str.equals(signature)) {
-				log.info("【TOKEN验证失败】");
 				throw new RuntimeException("Token验证失败");
 			}
 			log.info("【TOKEN验证成功】");
