@@ -43,7 +43,7 @@ public class WeiConfig {
 	 */
 	@PostConstruct // 启动项目自动加载
 	public static void init() {
-		log.info("。。。加载配置");
+		log.info("【加载配置】");
 		Resource resource = new ClassPathResource(PRO_NAME);
 		try {
 			pro = PropertiesLoaderUtils.loadProperties(resource);
