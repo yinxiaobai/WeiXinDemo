@@ -1,8 +1,6 @@
 package com.weixin.one.services;
 
 import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,8 +20,20 @@ public class AccessTokenService {
 	
 	private static final Logger log = LoggerFactory
 			.getLogger(AccessTokenService.class);
-
-	public static String access_token;
+	
+	private static AccessTokenService single = new AccessTokenService();
+	
+	private AccessTokenService(){
+		if(single != null){
+			throw new RuntimeException("【单例模式被破坏】");
+		}
+	}
+	
+	public static AccessTokenService getInstance(){
+		return single;
+	}
+	
+	public String access_token;
 	
 	/**
 	 * FIXME
@@ -33,7 +43,7 @@ public class AccessTokenService {
 	 * @date 2016年12月20日下午4:11:51
 	 * @author jq.yin@i-vpoints.com
 	 */
-	public static void receiveAccess_Token() {
+	public void receiveAccess_Token() {
 		// WeiConfig.init();
 		String url = WeiConfig.get("access_token.url");
 		String urlName = url + "&appid="
@@ -53,19 +63,8 @@ public class AccessTokenService {
 		log.info("凭证有效时间{}s",map.get("expires_in"));
 	}
 	
-	public static String getAccess_token() {
+	public String getAccess_token() {
 		return access_token;
-	}
-
-	public static void main(String[] args) {
-		//WeiConfig.init();
-		new Timer().schedule(new TimerTask() {
-			
-			@Override
-			public void run() {
-				AccessTokenService.receiveAccess_Token();
-			}
-		}, 0,1000*60*90);
 	}
 
 	/*public static void main(String[] args) {

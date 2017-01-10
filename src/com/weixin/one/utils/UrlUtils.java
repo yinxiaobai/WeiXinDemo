@@ -29,17 +29,17 @@ import org.slf4j.LoggerFactory;
  * @author jq.yin@i-vpoints.com
  */
 public class UrlUtils {
-	
+
 	private static final Logger log = LoggerFactory.getLogger(UrlUtils.class);
-	
+
 	// FIXME
-		// HttpClient所需配置
-		private static RequestConfig config = RequestConfig.custom()
-				// .setSocketTimeout(60000)
-				// .setConnectTimeout(60000)
-				// .setConnectionRequestTimeout(60000)
-				.build();
-		
+	// HttpClient所需配置
+	private static RequestConfig config = RequestConfig.custom()
+			// .setSocketTimeout(60000)
+			// .setConnectTimeout(60000)
+			// .setConnectionRequestTimeout(60000)
+			.build();
+
 	/**
 	 * URL发送get请求
 	 * 
@@ -77,7 +77,6 @@ public class UrlUtils {
 	}
 
 	/**
-	 * <未使用>
 	 * URLConnection发送GET请求
 	 * 
 	 * @date 2016年12月28日下午2:23:10
@@ -133,7 +132,6 @@ public class UrlUtils {
 	}
 
 	/**
-	 * <未使用>
 	 * URLConnection(HttpURLConnection)发送POST请求
 	 * 
 	 * @param url

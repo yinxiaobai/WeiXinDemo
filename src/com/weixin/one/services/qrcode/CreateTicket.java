@@ -26,7 +26,7 @@ public class CreateTicket {
 	 * @author jq.yin@i-vpoints.com
 	 */
 	public static void createTicket(Map<String,String> map){
-		String url = WeiConfig.get("create_ticket.url") + AccessTokenService.getAccess_token();
+		String url = WeiConfig.get("create_ticket.url") + AccessTokenService.getInstance().getAccess_token();
 		String action_name = map.get("action_name");
 		String param = null;
 		JSONObject jsonObject = new JSONObject();

@@ -22,6 +22,8 @@ public class MenuService {
 	private static final Logger log = LoggerFactory
 			.getLogger(MenuService.class);
 	
+	static AccessTokenService single = AccessTokenService.getInstance();
+	
 	/**
 	 * 创建公众号自定义菜单
 	 * @date 2016年12月28日下午3:53:16
@@ -29,8 +31,8 @@ public class MenuService {
 	 * @author jq.yin@i-vpoints.com
 	 */
 	public static String createMenu(List<Map<String,Object>> menuList){
-		String url = WeiConfig.get("create_menu.url") + AccessTokenService.getAccess_token();
-		log.info("access_token:{}",AccessTokenService.getAccess_token());
+		String url = WeiConfig.get("create_menu.url") + single.getAccess_token();
+		log.info("access_token:{}",single.getAccess_token());
 		// 请求参数
 		// TODO
 		String param = " {"
@@ -67,7 +69,7 @@ public class MenuService {
 	
 	public static String createMenu(){
 		log.info("【开始创建自定义菜单】");
-		String url = WeiConfig.get("create_menu.url") + AccessTokenService.getAccess_token();
+		String url = WeiConfig.get("create_menu.url") + single.getAccess_token();
 		// 请求参数
 		// TODO
 		/*String param = " {"
@@ -149,7 +151,7 @@ public class MenuService {
 	 * @author jq.yin@i-vpoints.com
 	 */
 	public static String deleteMenu (){
-		String url = WeiConfig.get("delete_menu.url") + AccessTokenService.getAccess_token();
+		String url = WeiConfig.get("delete_menu.url") + single.getAccess_token();
 		String result = UrlUtils.urlGet(url);
 		log.info(result);
 		return result;
@@ -162,7 +164,7 @@ public class MenuService {
 	 * @author jq.yin@i-vpoints.com
 	 */
 	public static String getMenu(){
-		String url = WeiConfig.get("get_menu.url") + AccessTokenService.getAccess_token();
+		String url = WeiConfig.get("get_menu.url") + single.getAccess_token();
 		String result = UrlUtils.urlGet(url);
 		log.info(result);
 		return result;

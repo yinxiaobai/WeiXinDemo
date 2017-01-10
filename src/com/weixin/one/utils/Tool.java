@@ -19,10 +19,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
 
+import com.qq.weixin.mp.aes.AesException;
+import com.qq.weixin.mp.aes.WXBizMsgCrypt;
 import com.thoughtworks.xstream.XStream;
 import com.weixin.one.config.WeiConfig;
-import com.weixin.one.utils.aes.AesException;
-import com.weixin.one.utils.aes.WXBizMsgCrypt;
 
 /**
  * 工具类
@@ -84,31 +84,34 @@ public class Tool {
 		SAXReader reader = new SAXReader();
 
 		try {
-			// 将接收到的微信端消息直接转换为Map
 			InputStream is = request.getInputStream();
 			Document doc = reader.read(is);
 			Element root = doc.getRootElement();
-			List<Element> list = root.elements();
-			for (Element e : list) {
-				map.put(e.getName(), e.getText());
-			}
 
 			if ("true".equalsIgnoreCase(WeiConfig.get("encrypt"))) {	// 密文模式
 				log.info("【密文模式】");
-				String encrypt = map.get("Encrypt");
+				// xml格式密文
+				String xmlStr = root.asXML();
+				// 验证信息
+				String timeStamp = request.getParameter("timestamp");
+				String nonce = request.getParameter("nonce");
+				String msgSignature = request.getParameter("msg_signature");
+				// 获得密文信息
 				// 获得WXBizMsgCrypt对象
 				WXBizMsgCrypt pc = WeiConfig.getWXBizMsgCrypt();
-				// 获取解密后的信息 xml格式
-				String msg = pc.decrypt(encrypt);
-				// 再次调用dom4j将xml信息转换为Map FIXME
+				// 解密,获取明文信息 xml格式
+				String msg = pc.decryptMsg(msgSignature, timeStamp, nonce, xmlStr);
 				StringReader xmlReader = new StringReader(msg);
 				InputSource source = new InputSource(xmlReader);
+				// 再次调用dom4j将xml信息转换为Map FIXME
 				doc = reader.read(source);
 				root = doc.getRootElement();
-				list = root.elements();
-				for (Element e : list) {
-					map.put(e.getName(), e.getText());
-				}
+			}
+			
+			// 封装Map
+			List<Element> list = root.elements();
+			for (Element e : list) {
+				map.put(e.getName(), e.getText());
 			}
 		} catch (IOException e) {
 			log.error(e.getMessage(), e);

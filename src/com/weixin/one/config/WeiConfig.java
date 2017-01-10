@@ -14,9 +14,9 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.stereotype.Service;
 
+import com.qq.weixin.mp.aes.AesException;
+import com.qq.weixin.mp.aes.WXBizMsgCrypt;
 import com.weixin.one.services.AccessTokenService;
-import com.weixin.one.utils.aes.AesException;
-import com.weixin.one.utils.aes.WXBizMsgCrypt;
 
 /**
  * @date 2016年12月20日下午1:14:43
@@ -31,6 +31,8 @@ public class WeiConfig {
 	private static final String PRO_NAME = "config.properties";
 
 	public static Properties pro;
+	// 定时器周期
+	private static final long PERIOD  = 1000 * 60 * 90;
 
 	/**
 	 * 加载配置
@@ -49,21 +51,42 @@ public class WeiConfig {
 			log.error("【配置文件读取出错】", e);
 		}
 
-		// 启动定时器
+		// 启动定时器,定时获取access_token
 		log.info("定时器启动");
 		new Timer().schedule(new TimerTask() {
 
 			@Override
 			public void run() {
-				AccessTokenService.receiveAccess_Token();
+				// 定时获取access_token
+				AccessTokenService.getInstance().receiveAccess_Token();
 			}
-		}, 0, 1000 * 60 * 90);
+		}, 0, PERIOD);
 	}
 
+	/**
+	 * 获取配置文件参数值
+	 * 
+	 * @date 2016年12月20日下午4:22:14
+	 * @param key
+	 *            属性名
+	 * @return
+	 * @author jq.yin@i-vpoints.com
+	 */
 	public static String get(String key) {
 		return pro.getProperty(key);
 	}
 
+	/**
+	 * 获取配置文件参数值
+	 * 
+	 * @date 2016年12月20日下午4:23:45
+	 * @param key
+	 *            属性名
+	 * @param defaultValue
+	 *            默认值
+	 * @return
+	 * @author jq.yin@i-vpoints.com
+	 */
 	public static String get(String key, String defaultValue) {
 		return pro.getProperty(key, defaultValue);
 	}
