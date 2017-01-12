@@ -51,4 +51,27 @@ public class SendMessageService {
 		log.debug("回复文本消息:" + xml);
 		return xml.toString();
 	}
+	
+	public static String sendImage (String openId, String fromUserName,
+			String mediaId){
+		String toUserName = openId;
+		// String fromUserName = WeiConfig.OPENID; FIXME
+		String msgType = MessageUtil.REQ_MESSAGE_TYPE_IMAGE;
+		String createTime = new Date().getTime() + "";
+
+		StringBuffer xml = new StringBuffer();
+
+		// FIXME 手动拼接回复xml,待修改
+		xml.append("<xml><ToUserName><![CDATA[").append(toUserName)
+				.append("]]></ToUserName>").append("<FromUserName><![CDATA[")
+				.append(fromUserName).append("]]></FromUserName>")
+				.append("<CreateTime>").append(createTime)
+				.append("</CreateTime>").append("<MsgType><![CDATA[")
+				.append(msgType).append("]]></MsgType>")
+				.append("<Content><![CDATA[").append(mediaId)
+				.append("]]></Content>").append("</xml>");
+		// 回复消息
+		log.debug("回复图片消息:" + xml);
+		return xml.toString();
+	}
 }

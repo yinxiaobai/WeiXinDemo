@@ -24,6 +24,14 @@ public class MenuService {
 	
 	static AccessTokenService single = AccessTokenService.getInstance();
 	
+	static String snsapiType1 = "snsapi_base";
+	static String snsapiType2 = "snsapi_userinfo";
+	
+	static String backUrl = "http%3A%2F%2Fxiaobai.5166.info%2FWeiXinDemo%2Ftest";
+	
+	static String baseurl1 = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+WeiConfig.get("weixin.appid")+"&redirect_uri="+backUrl+"&response_type=code&scope="+snsapiType1+"&state=123#wechat_redirect";
+	static String baseurl2 = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+WeiConfig.get("weixin.appid")+"&redirect_uri="+backUrl+"&response_type=code&scope="+snsapiType2+"&state=123#wechat_redirect";
+	
 	/**
 	 * 创建公众号自定义菜单
 	 * @date 2016年12月28日下午3:53:16
@@ -69,6 +77,7 @@ public class MenuService {
 	
 	public static String createMenu(){
 		log.info("【开始创建自定义菜单】");
+
 		String url = WeiConfig.get("create_menu.url") + single.getAccess_token();
 		// 请求参数
 		// TODO
@@ -119,6 +128,22 @@ public class MenuService {
 								+ "\"key\":\"rselfmenu_0_1\""
 							+ "}"
 						+ "]},"
+							
+						+ "{"
+						+ "\"name\":\"用户信息\","
+						+ "\"sub_button\":["
+						+ "{"
+							+ "\"type\":\"view\","
+							+ "\"name\":\"snsapi_base\","
+							+ "\"url\":\""+baseurl1+"\""
+						+ "},"
+						+ "{"
+							+ "\"type\":\"view\","
+							+ "\"name\":\"snsapi_userinfo\","
+							+ "\"url\":\""+baseurl2+"\""
+						+ "}"
+						+ "]},"
+						
 						+ "{"
 						+ "\"name\":\"发图\","
 						+ "\"sub_button\":["
@@ -138,9 +163,9 @@ public class MenuService {
 							+ "]"
 						+ "}"
 						+ "]}";
-		// String result = Tool.sendPost(url, param);
 		String result = UrlUtils.sendPost(url, param);
 		log.info(result);
+		log.info(param);
 		return result;
 	}
 	

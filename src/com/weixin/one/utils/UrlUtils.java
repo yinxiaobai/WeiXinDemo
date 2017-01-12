@@ -75,7 +75,7 @@ public class UrlUtils {
 		}
 		return sb.toString();
 	}
-
+	
 	/**
 	 * URLConnection发送GET请求
 	 * 
@@ -228,12 +228,12 @@ public class UrlUtils {
 			httpPost.setConfig(config);
 			// 执行请求
 			httpResponse = httpClient.execute(httpPost);
-			log.info("请求起始行:" + httpResponse.getStatusLine().toString());
+			log.debug("请求起始行:" + httpResponse.getStatusLine().toString());
 			// 获得首部信息
-			log.info("【获取响应头信息】");
+			log.debug("【获取响应头信息】");
 			Header[] hs = httpResponse.getAllHeaders();
 			for (Header h : hs) {
-				log.info(h.getName() + "\t" + h.getValue());
+				log.debug(h.getName() + "\t" + h.getValue());
 			}
 			entity = httpResponse.getEntity();
 			responseContent = EntityUtils.toString(entity, "UTF-8");
