@@ -44,7 +44,6 @@
 	</c:when>
 </c:choose><br>
 用户信息:${userInfo}
-
 </body>
-<script src ="${pageContext.request.contextPath}/js/canvas-nest.min.js" count="200" zindex="-2" opacity="0.7" color="47,135,193"></script>
+<%-- <script src ="${pageContext.request.contextPath}/js/canvas-nest.min.js" count="200" zindex="-2" opacity="0.7" color="47,135,193"></script> --%>
 </html>

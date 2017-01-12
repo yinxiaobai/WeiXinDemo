@@ -17,9 +17,9 @@ import com.weixin.one.utils.UrlUtils;
  * @author jq.yin@i-vpoints.com
  */
 @Controller
-public class BackH5 {
+public class BackController {
 
-	private static final Logger log = LoggerFactory.getLogger(BackH5.class);
+	private static final Logger log = LoggerFactory.getLogger(BackController.class);
 	
 	@RequestMapping("/test")
 	public String test01(HttpServletRequest request,Model model) {
