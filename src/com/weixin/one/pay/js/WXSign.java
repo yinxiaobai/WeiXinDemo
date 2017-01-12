@@ -36,7 +36,7 @@ public class WXSign {
     	signMap.put("notify_url", notifyUrl);
     	signMap.put("trade_type", tradeType);
     	signMap.put("openid", openid);
-    	signMap.put("key", key);
+    	// signMap.put("key", key);
     	StringBuilder sb = new StringBuilder();
     	for(String keyMap : signMap.keySet()){
     		sb.append(keyMap).append("=").append(signMap.get(keyMap)).append("&");
@@ -45,9 +45,9 @@ public class WXSign {
     	if("&".equals(param.substring(param.length()-1))){
     		param = param.substring(0, param.length()-1);
     	}
+    	param += "&key="+key;
     	System.out.println(param);
-    	String sign = Tool.md5(param).toUpperCase();
-    	
+    	String sign = Tool.md5(param).toUpperCase(); 
     	signMap.put("sign", sign);
 		return signMap;
     }
