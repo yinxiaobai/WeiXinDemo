@@ -8,6 +8,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -34,6 +35,8 @@ import com.weixin.one.config.WeiConfig;
 public class Tool {
 
 	private static final Logger log = LoggerFactory.getLogger(Tool.class);
+	
+	private static final char[] HEX_DIGITS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 
 	/**
 	 * SHA1加密
@@ -136,5 +139,39 @@ public class Tool {
 		stream.alias("xml", map.getClass());
 		String xml = stream.toXML(map);
 		return xml;
+	}
+	
+	/**
+     * 生成随机字符串
+     * @date 2017年1月12日下午5:25:26
+     * @return
+     * @author jq.yin@i-vpoints.com
+     */
+    public static String createNonceStr () {
+    	return UUID.randomUUID().toString();
+    }
+	
+    private static String toHex(byte[] bytes) {
+		StringBuilder ret = new StringBuilder(bytes.length * 2);
+		for (int i=0; i<bytes.length; i++) {
+			ret.append(HEX_DIGITS[(bytes[i] >> 4) & 0x0f]);
+			ret.append(HEX_DIGITS[bytes[i] & 0x0f]);
+		}
+		return ret.toString();
+	}
+    
+	public static String md5(String srcStr){
+		return hash("MD5", srcStr);
+	}
+	
+	public static String hash(String algorithm, String srcStr) {
+		try {
+			MessageDigest md = MessageDigest.getInstance(algorithm);
+			byte[] bytes = md.digest(srcStr.getBytes("utf-8"));
+			return toHex(bytes);
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 }

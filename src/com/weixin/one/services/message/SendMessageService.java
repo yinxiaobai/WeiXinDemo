@@ -52,11 +52,20 @@ public class SendMessageService {
 		return xml.toString();
 	}
 	
-	public static String sendImage (String openId, String fromUserName,
+	/**
+	 * 回复图片/语音信息
+	 * @date 2017年1月12日下午1:10:12
+	 * @param openId
+	 * @param fromUserName
+	 * @param mediaId
+	 * @return
+	 * @author jq.yin@i-vpoints.com
+	 */
+	public static String sendImage (String openId, String fromUserName,String type,
 			String mediaId){
 		String toUserName = openId;
 		// String fromUserName = WeiConfig.OPENID; FIXME
-		String msgType = MessageUtil.REQ_MESSAGE_TYPE_IMAGE;
+		String msgType = type;//MessageUtil.REQ_MESSAGE_TYPE_IMAGE;
 		String createTime = new Date().getTime() + "";
 
 		StringBuffer xml = new StringBuffer();

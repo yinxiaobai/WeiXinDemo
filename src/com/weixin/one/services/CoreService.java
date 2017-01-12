@@ -44,7 +44,7 @@ public class CoreService {
 		} else if (method.equalsIgnoreCase("POST")) {	// POST,消息交互
 			// 接收微信消息
 			Map<String, String> msgMap = Tool.receiveMessage(request);
-			log.info("收到微信端{}消息:{}", msgMap.get("MsgType"), msgMap.toString());
+			log.info("收到微信端{}消息{}", msgMap.get("MsgType"), msgMap.toString());
 			// 消息处理
 			ReceiveService.getMessage(msgMap, response);
 

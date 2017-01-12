@@ -59,13 +59,14 @@ public class AccessTokenService {
 		if ("".equals(access_token) || access_token == null) {
 			throw new RuntimeException("【获取access_token失败】");
 		}
-		log.info("获取access_token成功");
+		log.info("获取access_token成功:"+access_token);
 		log.info("凭证有效时间{}s",map.get("expires_in"));
 	}
 	
 	public String getAccess_token() {
 		return access_token;
 	}
+	
 
 	/*public static void main(String[] args) {
 		log.info("start");

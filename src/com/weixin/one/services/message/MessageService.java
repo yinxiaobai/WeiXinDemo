@@ -36,7 +36,7 @@ public class MessageService {
 	 */
 	public static void TextMessage(Map<String, String> map, PrintWriter out) {
 		String msg = map.get("Content");
-		log.info("接收到" + MessageUtil.REQ_MESSAGE_TYPE_TEXT + "消息:" + msg);
+		log.info("接收到{}消息:{}",MessageUtil.REQ_MESSAGE_TYPE_TEXT,msg);
 
 		/*********************** 回复信息处理 ***********************/
 
@@ -78,10 +78,10 @@ public class MessageService {
 			content = result;
 			break;
 		case "ticket":
-			Map<String,String> ticketMap = new HashMap<String, String>();
-			// 有效期，单位:s	默认30s
+			Map<String, String> ticketMap = new HashMap<String, String>();
+			// 有效期，单位:s 默认30s
 			ticketMap.put("expire_seconds", "5000");
-			// QR_SCENE临时二维码	QR_LIMIT_SCENE永久二维码	QR_LIMIT_STR_SCENE永久字符串参数值
+			// QR_SCENE临时二维码 QR_LIMIT_SCENE永久二维码 QR_LIMIT_STR_SCENE永久字符串参数值
 			ticketMap.put("action_name", "QR_LIMIT_SCENE");
 			// 场景值ID,整形
 			ticketMap.put("scene_id", "0556");
@@ -93,6 +93,11 @@ public class MessageService {
 		// 回复文本消息
 		String xml = SendMessageService.sendText(toUserName, fromUserName,
 				content);
+//		String openId = "ozWXyvnhsDj2RrQGjtu9CpOWSCcM";
+//		String type = "voice";
+//		String mediaId = "nCIYuDPalKkx-ygE_BVXayPTL-R4Xc5xIcBkKKRZhvsshyLLQZkyH5grE_i4Cuut";
+//		xml = SendMessageService.sendImage(openId, fromUserName, type, mediaId);
+		log.debug("回复微信端xml数据{}",xml);
 		out.println(xml);
 		out.flush();
 	}
@@ -111,7 +116,7 @@ public class MessageService {
 		// FIXME 公众号开发者(申请人)微信号,唯一
 		String fromUserName = map.get("ToUserName");
 		String recognition = map.get("Recognition");
-		log.info("接收到" + MessageUtil.REQ_MESSAGE_TYPE_VOICE + "内容{}",
+		log.info("接收到{}内容{},识别为:", MessageUtil.REQ_MESSAGE_TYPE_VOICE,
 				recognition);
 
 		String content;
@@ -138,7 +143,8 @@ public class MessageService {
 	 * @param out
 	 * @author jq.yin@i-vpoints.com
 	 */
-	public static void locationMessage(Map<String, String> map, PrintWriter out) {
+	public static void locationMessage(Map<String, String> map,
+			PrintWriter out) {
 		// 消息接收者openId
 		String toUserName = map.get("FromUserName");
 		// FIXME 公众号开发者(申请人)微信号,唯一

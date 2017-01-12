@@ -34,14 +34,14 @@ public class BackController {
 		log.info("openId相关信息:"+resultJson);
 		if(openid == null){
 			log.info("【openid获取失败】");
-			return "pay";
+			return "page";
 		}
 		// 获取用户信息
 		String userUrl = "https://api.weixin.qq.com/sns/userinfo?access_token="+accessToken+"&openid="+openid+"&lang=zh_CN";
 		String userInfo = UrlUtils.urlGet(userUrl);
 		log.info("用户信息:"+userInfo);
 		model.addAttribute("userInfo", JSONObject.parse(userInfo));
-		return "pay";
+		return "page";
 	}
 	
 }
