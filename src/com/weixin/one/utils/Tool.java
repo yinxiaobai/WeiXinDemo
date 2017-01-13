@@ -125,6 +125,22 @@ public class Tool {
 		}
 		return map;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public static Map<String,String> xmlToMap(String xmlStr) throws DocumentException{
+		StringReader xmlReader = new StringReader(xmlStr);
+		InputSource source = new InputSource(xmlReader);
+		SAXReader reader = new SAXReader();;
+		Document doc = reader.read(source);
+		Element root = doc.getRootElement();
+		Map<String,String> map = new HashMap<String,String>();
+		// 封装Map
+		List<Element> list = root.elements();
+		for (Element e : list) {
+			map.put(e.getName(), e.getText());
+		}
+		return map;
+	}
 
 	/**
 	 * 将map转化为xml字符串

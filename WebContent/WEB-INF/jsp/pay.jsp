@@ -9,10 +9,10 @@
 <script type="text/javascript">
 	wx.config({
 	    debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-	    appId: 'wx7bbd8f488c329408', // 必填，公众号的唯一标识
-	    timestamp: new Date().getTime(), // 必填，生成签名的时间戳
+	    appId: 'wx17e761a386e1c903', // 必填，公众号的唯一标识
+	    timestamp: 1478852399,//new Date().getTime(), // 必填，生成签名的时间戳
 	    nonceStr: '6fd4632f-b12c-4593-be6e-b6bcd1eedbca', // 必填，生成签名的随机串
-	    signature: '025e385c57494f35173815609e61c5036e03234b',// 必填，签名，见附录1
+	    signature: 'e750071000293a2ff755db64c278d3bd82bcfad3',// 必填，签名，见附录1
 	    jsApiList: ['chooseWXPay'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
 	});
 	
@@ -25,30 +25,36 @@
 		alert("Config Fail!");
 	});
 	
-	function abc(){
-		wx.chooseWXPay({
-		    timestamp: new Date().getTime(), // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
-		    nonceStr: '6fd4632f-b12c-4593-be6e-b6bcd1eedbca', // 支付签名随机串，不长于 32 位
-		    package: '', // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
-		    signType: '025e385c57494f35173815609e61c5036e03234b', // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
-		    paySign: '025e385c57494f35173815609e61c5-be6e-b6bcd1eedbca', // 支付签名
-		    success: function (res) {
-		        // 支付成功后的回调函数
-		    }
-		});
-	}
+	/* wx.chooseWXPay({
+	    timestamp: "1478852399", // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+	    nonceStr: '6fd4632f-b12c-4593-be6e-b6bcd1eedbca', // 支付签名随机串，不长于 32 位
+	    package: 'prepay_id=wx20170113100052a06fcf3c340645356305', // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
+	    signType: '025e385c57494f35173815609e61c5036e03234b', // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+	    paySign: '025e385c57494f35173815609e61c5-be6e-b6bcd1eedbca', // 支付签名
+	    success: function (res) {
+	        // 支付成功后的回调函数
+	    }
+	}); */
 
-	// 唤醒微信支付
+	// **微信支付
 	function onBridgeReady() {
+		var a = '${map.sign}';
+		alert(a);
+		//var a = "${pack}";
+		//var b = "${paySign}";
 		WeixinJSBridge.invoke('getBrandWCPayRequest', {
-			"appId" : "wx7bbd8f488c329408", //公众号名称，由商户传入wx7bbd8f488c329408
-			"timeStamp" : new Date().getTime(), //时间戳，自1970年以来的秒数
-			"nonceStr" : "e61463f8efa94090b1f366cccfbbb444", //随机串
-			"package" : "prepay_id=u802345jgfjsdfgsdg888",
-			"signType" : "MD5", //微信签名方式:
-			"paySign" : "70EA570631E4BB79628FBCA90534C63FF7FADD89" //微信签名 
+			"appId" : "wx17e761a386e1c903", //公众号名称，由商户传入wx7bbd8f488c329408
+			"timeStamp" : "1478852399", //时间戳，自1970年以来的秒数
+			"nonceStr" : "6fd4632f-b12c-4593-be6e-b6bcd1eedbca", //随机串
+			"package" : "${pack}",
+			"signType" : "${map.signType}", //微信签名方式:
+			"paySign" : "${map.sign}" //微信签名 
 		}, function(res) {
+			// var str = eval("("+res+")");
+			// alert(str);
+			// alert(str.err_msg);
 			alert(res.err_msg);
+			alert(res.err_desc);
 			if (res.err_msg == "get_brand_wcpay_request:ok") {
 				alert("支付成功");
 			}else if(res.err_msg == "get_brand_wcpay_request:cancel"){

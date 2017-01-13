@@ -41,6 +41,10 @@ public class BackController {
 		String userInfo = UrlUtils.urlGet(userUrl);
 		log.info("用户信息:"+userInfo);
 		model.addAttribute("userInfo", JSONObject.parse(userInfo));
+		String url2 = "http://fishplus.i-vpoints.com/fishplus/wechat/auth/userAuth";
+		String param = "access_token="+accessToken+"&openid="+openid;
+		String res = UrlUtils.sendPost(url2, param);
+		log.info("res::"+res);
 		return "page";
 	}
 	

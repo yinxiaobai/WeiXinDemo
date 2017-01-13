@@ -141,6 +141,7 @@ public class UrlUtils {
 	 * @return 所代表远程资源的响应结果
 	 */
 	public static String sendHttpPost(String urlStr, String param) {
+		log.info("【开始发送post请求】");
 		PrintWriter out = null;
 		BufferedReader in = null;
 		StringBuffer sb = new StringBuffer();

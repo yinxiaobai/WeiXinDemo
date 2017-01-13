@@ -2,10 +2,10 @@ package com.weixin.one.pay.services;
 
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.dom4j.DocumentException;
 
 import com.weixin.one.pay.js.WXSign;
+import com.weixin.one.utils.Tool;
 import com.weixin.one.utils.UrlUtils;
 
 /**
@@ -14,16 +14,12 @@ import com.weixin.one.utils.UrlUtils;
  */
 public class OrderServices {
 
-	private static final Logger log = LoggerFactory
-			.getLogger(OrderServices.class);
-
 	static String url = "http://wxgzh3.i-vpoints.com/WeiXinDemo/pay";
-	public static String createOrder(Object obj) {
+	public static Map<String,String> createOrder() throws DocumentException {
 		String orderUrl = "https://api.mch.weixin.qq.com/pay/unifiedorder";
 		Map<String,String> sign = WXSign.sign();
-		log.info("sign:"+sign.toString());
 		String param = "<xml>"
-				+ "<appid>"+sign.get("appId")+"</appid>"
+				+ "<appid>"+sign.get("appid")+"</appid>"
 //				+ "<attach>"+sign.get("apppid")+"</attach>"
 				+ "<body>"+sign.get("body")+"</body>"		// 商品描述
 				+ "<mch_id>"+sign.get("mch_id")+"</mch_id>"		// 商户ID
@@ -39,13 +35,17 @@ public class OrderServices {
 				+ "<sign>"+sign.get("sign")+"</sign>"
 //				+ "<sign_type>"+sign.get("apppid")+"</sign_type>"					// 加密类型
 				+ "</xml>";
-		System.out.println(param);
-		String a = UrlUtils.sendHttpPost(orderUrl, param);
-		return a;
+		System.out.println("请求参数:"+param);
+		String result = UrlUtils.sendHttpPost(orderUrl, param);
+		Map<String,String> reqMap = Tool.xmlToMap(result);
+		return reqMap;
 	}
 	
-	public static void main(String[] args) {
-		System.out.println(createOrder(null));
+	public static void main(String[] args) throws DocumentException {
+		Map<String,String> reqMap = createOrder();
+		System.out.println("返回结果:"+reqMap);
+		System.out.println("code_url:"+reqMap.get("code_url"));
+		System.out.println("prepay_id:" + reqMap.get("prepay_id"));
 	}
 	
 }
