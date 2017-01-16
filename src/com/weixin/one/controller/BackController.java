@@ -19,33 +19,54 @@ import com.weixin.one.utils.UrlUtils;
 @Controller
 public class BackController {
 
-	private static final Logger log = LoggerFactory.getLogger(BackController.class);
-	
+	private static final Logger log = LoggerFactory
+			.getLogger(BackController.class);
+
+	/**
+	 * 授权获取用户信息
+	 * 
+	 * @date 2017年1月16日下午2:26:52
+	 * @param request
+	 * @param model
+	 * @return
+	 * @author jq.yin@i-vpoints.com
+	 */
 	@RequestMapping("/test")
-	public String test01(HttpServletRequest request,Model model) {
+	public String test01(HttpServletRequest request, Model model) {
 		log.info("【request】");
-		String code = request.getParameter("code") == null ? "": request.getParameter("code");
-		String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid="+WeiConfig.get("weixin.appid")+"&secret="+WeiConfig.get("weixn.secret")+"&code="+code+"&grant_type=authorization_code";
+		String code = request.getParameter("code") == null ? ""
+				: request.getParameter("code");
+		String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid="
+				+ WeiConfig.get("weixin.appid") + "&secret="
+				+ WeiConfig.get("weixn.secret") + "&code=" + code
+				+ "&grant_type=authorization_code";
+		// String url =
+		// "https://api.weixin.qq.com/sns/oauth2/access_token?appid="+WeiConfig.get("fish.appId")+"&secret="+WeiConfig.get("fish.appSecret")+"&code="+code+"&grant_type=authorization_code";
 		// 获得access_token和openId
 		String resultJson = UrlUtils.urlGet(url);
 		JSONObject jsonObject = JSONObject.parseObject(resultJson);
 		String accessToken = jsonObject.getString("access_token");
 		String openid = jsonObject.getString("openid");
-		log.info("openId相关信息:"+resultJson);
-		if(openid == null){
+		log.info("openId相关信息:" + resultJson);
+		if (openid == null) {
 			log.info("【openid获取失败】");
 			return "page";
 		}
 		// 获取用户信息
-		String userUrl = "https://api.weixin.qq.com/sns/userinfo?access_token="+accessToken+"&openid="+openid+"&lang=zh_CN";
+		String userUrl = "https://api.weixin.qq.com/sns/userinfo?access_token="
+				+ accessToken + "&openid=" + openid + "&lang=zh_CN";
 		String userInfo = UrlUtils.urlGet(userUrl);
-		log.info("用户信息:"+userInfo);
+		log.info("用户信息:" + userInfo);
 		model.addAttribute("userInfo", JSONObject.parse(userInfo));
-		String url2 = "http://fishplus.i-vpoints.com/fishplus/wechat/auth/userAuth";
-		String param = "access_token="+accessToken+"&openid="+openid;
-		String res = UrlUtils.sendPost(url2, param);
-		log.info("res::"+res);
+		/*
+		 * String url2 =
+		 * "http://fishplus.i-vpoints.com/fishplus/wechat/auth/userAuth";
+		 * openid = "o921QxGwyiXRxJ1SuTIktWnMitXk";
+		 * String param = "access_token="+accessToken+"&openid="+openid;
+		 * String res = UrlUtils.sendPost(url2, param);
+		 * log.info("res::"+res);
+		 */
 		return "page";
 	}
-	
+
 }

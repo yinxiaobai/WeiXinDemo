@@ -3,8 +3,8 @@ package com.weixin.one.utils;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,39 +35,22 @@ import com.weixin.one.config.WeiConfig;
 public class Tool {
 
 	private static final Logger log = LoggerFactory.getLogger(Tool.class);
-	
-	private static final char[] HEX_DIGITS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 
 	/**
-	 * SHA1加密
+	 * 转换为URL编码
 	 * 
-	 * @date 2016年12月20日上午9:30:34
-	 * @param decript	加密字符串
-	 * @return			密文
+	 * @date 2017年1月16日下午1:38:00
+	 * @param str
+	 * @return
 	 * @author jq.yin@i-vpoints.com
 	 */
-	public static String SHA1(String decript) {
+	public static String getURLString(String str) {
 		try {
-			// SHA1签名生成
-			MessageDigest digest = MessageDigest.getInstance("SHA-1");
-			digest.update(decript.getBytes());
-			byte messageDigest[] = digest.digest();
-			// Create Hex String
-			StringBuffer hexString = new StringBuffer();
-			// 字节数组转换为 十六进制 数
-			for (int i = 0; i < messageDigest.length; i++) {
-				String shaHex = Integer.toHexString(messageDigest[i] & 0xFF);
-				if (shaHex.length() < 2) {
-					hexString.append(0);
-				}
-				hexString.append(shaHex);
-			}
-			return hexString.toString();
-
-		} catch (NoSuchAlgorithmException e) {
+			str = URLEncoder.encode(str, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
 			log.error(e.getMessage(), e);
 		}
-		return "";
+		return str;
 	}
 
 	/**
@@ -103,14 +86,15 @@ public class Tool {
 				// 获得WXBizMsgCrypt对象
 				WXBizMsgCrypt pc = WeiConfig.getWXBizMsgCrypt();
 				// 解密,获取明文信息 xml格式
-				String msg = pc.decryptMsg(msgSignature, timeStamp, nonce, xmlStr);
+				String msg = pc.decryptMsg(msgSignature, timeStamp, nonce,
+						xmlStr);
 				StringReader xmlReader = new StringReader(msg);
 				InputSource source = new InputSource(xmlReader);
 				// 再次调用dom4j将xml信息转换为Map FIXME
 				doc = reader.read(source);
 				root = doc.getRootElement();
 			}
-			
+
 			// 封装Map
 			List<Element> list = root.elements();
 			for (Element e : list) {
@@ -125,22 +109,25 @@ public class Tool {
 		}
 		return map;
 	}
-	
+
 	/**
 	 * xml字符串转换为Map
+	 * 
 	 * @date 2017年1月16日上午11:49:37
 	 * @param xmlStr
 	 * @return
 	 * @throws DocumentException
 	 * @author jq.yin@i-vpoints.com
 	 */
-	public static Map<String,String> xmlToMap(String xmlStr) throws DocumentException{
+	public static Map<String, String> xmlToMap(String xmlStr)
+			throws DocumentException {
 		StringReader xmlReader = new StringReader(xmlStr);
 		InputSource source = new InputSource(xmlReader);
-		SAXReader reader = new SAXReader();;
+		SAXReader reader = new SAXReader();
+		;
 		Document doc = reader.read(source);
 		Element root = doc.getRootElement();
-		Map<String,String> map = new HashMap<String,String>();
+		Map<String, String> map = new HashMap<String, String>();
 		// 封装Map
 		@SuppressWarnings("unchecked")
 		List<Element> list = root.elements();
@@ -151,9 +138,9 @@ public class Tool {
 	}
 
 	/**
-	 * 将map转化为xml字符串
+	 * 将Map转化为xml字符串
 	 * xiaobai
-	 * 2016年12月19日下午17:14:41
+	 * 2016年12月19日下午23:14:41
 	 * 
 	 * @param map
 	 * @return
@@ -164,42 +151,20 @@ public class Tool {
 		String xml = stream.toXML(map);
 		return xml;
 	}
-	
+
 	/**
-     * 生成随机字符串
-     * @date 2017年1月12日下午5:25:26
-     * @return
-     * @author jq.yin@i-vpoints.com
-     */
-    public static String createNonceStr () {
-    	return UUID.randomUUID().toString();
-    }
-    
-    public static void main(String[] args){
-    	System.out.println(createNonceStr());
-    }
-	
-    private static String toHex(byte[] bytes) {
-		StringBuilder ret = new StringBuilder(bytes.length * 2);
-		for (int i=0; i<bytes.length; i++) {
-			ret.append(HEX_DIGITS[(bytes[i] >> 4) & 0x0f]);
-			ret.append(HEX_DIGITS[bytes[i] & 0x0f]);
-		}
-		return ret.toString();
+	 * 生成随机字符串
+	 * 
+	 * @date 2017年1月12日下午5:25:26
+	 * @return
+	 * @author jq.yin@i-vpoints.com
+	 */
+	public static String createNonceStr() {
+		return UUID.randomUUID().toString();
 	}
-    
-	public static String md5(String srcStr){
-		return hash("MD5", srcStr);
+
+	public static void main(String[] args) {
+		System.out.println(createNonceStr());
 	}
-	
-	public static String hash(String algorithm, String srcStr) {
-		try {
-			MessageDigest md = MessageDigest.getInstance(algorithm);
-			byte[] bytes = md.digest(srcStr.getBytes("utf-8"));
-			return toHex(bytes);
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
+
 }

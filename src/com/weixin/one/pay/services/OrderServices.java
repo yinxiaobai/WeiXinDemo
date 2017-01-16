@@ -22,6 +22,13 @@ public class OrderServices {
 	// 微信统一下单接口
 	static String orderUrl = "https://api.mch.weixin.qq.com/pay/unifiedorder";
 
+	/**
+	 * 创建订单
+	 * @date 2017年1月16日下午2:27:35
+	 * @return
+	 * @throws DocumentException
+	 * @author jq.yin@i-vpoints.com
+	 */
 	public static Map<String, String> createOrder() throws DocumentException {
 		Map<String, String> sign = WXSign.sign();
 		String param = "<xml>" + "<appid>" + sign.get("appid") + "</appid>"

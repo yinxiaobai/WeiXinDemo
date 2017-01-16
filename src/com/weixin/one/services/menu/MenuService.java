@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import com.alibaba.fastjson.JSONObject;
 import com.weixin.one.config.WeiConfig;
 import com.weixin.one.services.AccessTokenService;
+import com.weixin.one.utils.Tool;
 import com.weixin.one.utils.UrlUtils;
 
 /**
@@ -27,12 +28,11 @@ public class MenuService {
 	static String snsapiType1 = "snsapi_base";
 	static String snsapiType2 = "snsapi_userinfo";
 	
-	static String backUrl = "http%3A%2F%2Fxiaobai.5166.info%2FWeiXinDemo%2Ftest";
-	
-	static String baseurl1 = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+WeiConfig.get("weixin.appid")+"&redirect_uri="+backUrl+"&response_type=code&scope="+snsapiType1+"&state=123#wechat_redirect";
-	static String baseurl2 = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+WeiConfig.get("weixin.appid")+"&redirect_uri="+backUrl+"&response_type=code&scope="+snsapiType2+"&state=123#wechat_redirect";
+	static String backUrl = "http://xiaobai.5166.info/WeiXinDemo/test";
 	
 	/**
+	 *  TODO
+	 *  <未使用>
 	 * 创建公众号自定义菜单
 	 * @date 2016年12月28日下午3:53:16
 	 * @return
@@ -75,8 +75,16 @@ public class MenuService {
 		return result;
 	}
 	
+	/**
+	 * 创建公众号自定义菜单
+	 * @date 2016年12月28日下午3:53:16
+	 * @return
+	 * @author jq.yin@i-vpoints.com
+	 */
 	public static String createMenu(){
 		log.info("【开始创建自定义菜单】");
+		String baseurl1 = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+WeiConfig.get("weixin.appid")+"&redirect_uri="+Tool.getURLString(backUrl)+"&response_type=code&scope="+snsapiType1+"&state=123#wechat_redirect";
+		String baseurl2 = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+WeiConfig.get("weixin.appid")+"&redirect_uri="+Tool.getURLString(backUrl)+"&response_type=code&scope="+snsapiType2+"&state=123#wechat_redirect";
 
 		String url = WeiConfig.get("create_menu.url") + single.getAccess_token();
 		// 请求参数
@@ -276,8 +284,7 @@ public class MenuService {
 	 * @return
 	 * @author jq.yin@i-vpoints.com
 	 */
-	@SuppressWarnings("unused")
-	private static String menuType(Map<String,String> map,
+	public static String menuType(Map<String,String> map,
 			String type) {
 		JSONObject jsonObject = new JSONObject();
 		String param = null;
@@ -350,7 +357,10 @@ public class MenuService {
 	
 	public static void main(String[] args) {
 		// WeiConfig.init();
-		createMenu();
+		// createMenu();
 		// deleteMenu();
+
+		Tool.getURLString(backUrl);
+		System.out.println(backUrl);
 	}
 }

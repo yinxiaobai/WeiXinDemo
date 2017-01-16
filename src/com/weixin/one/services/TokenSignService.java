@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.weixin.one.config.WeiConfig;
-import com.weixin.one.utils.Tool;
+import com.weixin.one.utils.EncryptUtil;
 
 /**
  * Tocken验证
@@ -52,7 +52,7 @@ public class TokenSignService {
 			String[] arr = new String[] { WeiConfig.get("weixin.token"),
 					timestamp, nonce };
 			Arrays.sort(arr);
-			String str = Tool.SHA1(arr[0] + arr[1] + arr[2]);
+			String str = EncryptUtil.SHA1(arr[0] + arr[1] + arr[2]);
 			if (!str.equals(signature)) {
 				throw new RuntimeException("Token验证失败");
 			}

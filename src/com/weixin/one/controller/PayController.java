@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.weixin.one.pay.js.WXSign;
+import com.weixin.one.utils.EncryptUtil;
 import com.weixin.one.utils.Tool;
 
 /**
@@ -81,6 +82,6 @@ public class PayController {
 	
 	public static void main(String[] args) {
 		String s = "BestChoice";
-		System.out.println(Tool.md5(s));// cb60803fe1e9cc56164684e040b2bbc0
+		System.out.println(EncryptUtil.md5(s));// cb60803fe1e9cc56164684e040b2bbc0
 	}
 }
