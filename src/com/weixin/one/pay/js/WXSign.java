@@ -31,14 +31,20 @@ public class WXSign {
 	 * key: abcdefghijklmnopqrstuvwxyz123456 
 	 * openid:
 	 */
-	static String key = "cb60803fe1e9cc56164684e040b2bbc0";
+	static String key = WeiConfig.get("fish.key");
 	static String appid = WeiConfig.get("fish.appId");
 	static String mchId = WeiConfig.get("fish.mch_id");
+	
+	/**
+	 * 
+	 * @date 2017年1月16日下午1:14:39
+	 * @return
+	 * @author jq.yin@i-vpoints.com
+	 */
     public static Map<String,String> sign() {
     	String nonceStr = "asdacsd33fsfsdf";
     	String body = "中信春节观影";
     	String outTradeNo = System.currentTimeMillis() + "";
-    	// outTradeNo = "1478523690";
     	int totalFee = 1;
     	String spbillCreateIp = "123.12.12.123";
     	String notifyUrl = "http://fishplusdev.i-vpoints.com/WeiXinDemo/create/pay";
@@ -87,6 +93,12 @@ public class WXSign {
 		return signMap;
 	}
     
+	/**
+	 * 
+	 * @date 2017年1月16日下午1:14:30
+	 * @return
+	 * @author jq.yin@i-vpoints.com
+	 */
     public static Map<String, String> getPaySign(){
     	String prepay_id = "";
 		try {
