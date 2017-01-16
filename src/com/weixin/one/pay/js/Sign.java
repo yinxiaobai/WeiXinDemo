@@ -11,7 +11,7 @@ import java.io.UnsupportedEncodingException;
 public class Sign {
     @SuppressWarnings("rawtypes")
 	public static void main(String[] args) {
-        String jsapi_ticket = "kgt8ON7yVITDhtdwci0qedfX4Q2k8I7Ycrv5we-MiMJbB79B3nP8imhL6QBCREf4QhKDw8aaNA8PqHqDSNKZUQ";
+        String jsapi_ticket = "kgt8ON7yVITDhtdwci0qedfX4Q2k8I7Ycrv5we-MiMLmewegIQfrd72PI0c1cuKQgJeOCNpGhTdkPT7RDDuxSw";
 
         // 注意 URL 一定要动态获取，不能 hardcode
         String url = "http://fishplusdev.i-vpoints.com/WeiXinDemo/create";

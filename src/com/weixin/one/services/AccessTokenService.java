@@ -44,7 +44,7 @@ public class AccessTokenService {
 	 * @author jq.yin@i-vpoints.com
 	 */
 	public void receiveAccess_Token() {
-		// WeiConfig.init();
+//		WeiConfig.init();
 		String url = WeiConfig.get("access_token.url");
 		String urlName = url + "&appid="
 				+ WeiConfig.get("weixin.appid") + "&secret="
@@ -68,10 +68,10 @@ public class AccessTokenService {
 	}
 	
 
-	/*public static void main(String[] args) {
+	public static void main(String[] args) {
 		log.info("start");
 		WeiConfig.init();
-		getAccess_Token();
-		log.info("access_token:" + access_token);
-	}*/
+		System.out.println(new AccessTokenService().getAccess_token());
+		// log.info("access_token:" + access_token);
+	}
 }

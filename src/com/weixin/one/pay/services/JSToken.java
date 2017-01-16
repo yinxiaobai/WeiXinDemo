@@ -12,7 +12,7 @@ public class JSToken {
 	public static void main(String[] args) {
 		// WeiConfig.init();
 		String accessTonek = AccessTokenService.getInstance().getAccess_token();
-		accessTonek = "U01RPLMcquP8ERrBIoCPK5WVAkHbTgk2fFPM3AmWcX2qIOHQPsPUACwwZvRNj-yGhR1r8PWMIFPvAjJpMBoNiUh3svkhJVCwmYBse21m06ETdexp4QCZsYL4vsPuNB4UYCHaAAATXC";
+		accessTonek = "vfXXOIegbdVZ1fHCbheqAirdcGETj3xJpIHkPB7kOyInDcBIpKV6U4BnJhg2QyMeATrLPuCHgXknaQO70s_fCTJg34BeOJCNVSbJ69hfxrmXyfGWlQl3Xsw2lNeiIVN_KIEeAGAYWS";
 		String url = "http://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&access_token="+accessTonek+"";
 		String jsToken = UrlUtils.sendGet(url);
 		JSONObject jsonObject = (JSONObject) JSONObject.parse(jsToken);

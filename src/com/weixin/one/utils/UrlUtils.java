@@ -198,6 +198,7 @@ public class UrlUtils {
 				ex.printStackTrace();
 			}
 		}
+		log.info("post请求结果:"+sb.toString());
 		return sb.toString();
 	}
 

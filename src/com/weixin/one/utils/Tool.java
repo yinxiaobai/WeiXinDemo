@@ -42,8 +42,8 @@ public class Tool {
 	 * SHA1加密
 	 * 
 	 * @date 2016年12月20日上午9:30:34
-	 * @param decript
-	 * @return
+	 * @param decript	加密字符串
+	 * @return			密文
 	 * @author jq.yin@i-vpoints.com
 	 */
 	public static String SHA1(String decript) {
@@ -71,7 +71,7 @@ public class Tool {
 	}
 
 	/**
-	 * 接收微信端消息
+	 * 接收微信端xml消息,转换为Map
 	 * 
 	 * @date 2016年12月20日下午4:19:41
 	 * @param request
@@ -126,7 +126,14 @@ public class Tool {
 		return map;
 	}
 	
-	@SuppressWarnings("unchecked")
+	/**
+	 * xml字符串转换为Map
+	 * @date 2017年1月16日上午11:49:37
+	 * @param xmlStr
+	 * @return
+	 * @throws DocumentException
+	 * @author jq.yin@i-vpoints.com
+	 */
 	public static Map<String,String> xmlToMap(String xmlStr) throws DocumentException{
 		StringReader xmlReader = new StringReader(xmlStr);
 		InputSource source = new InputSource(xmlReader);
@@ -135,6 +142,7 @@ public class Tool {
 		Element root = doc.getRootElement();
 		Map<String,String> map = new HashMap<String,String>();
 		// 封装Map
+		@SuppressWarnings("unchecked")
 		List<Element> list = root.elements();
 		for (Element e : list) {
 			map.put(e.getName(), e.getText());
@@ -165,6 +173,10 @@ public class Tool {
      */
     public static String createNonceStr () {
     	return UUID.randomUUID().toString();
+    }
+    
+    public static void main(String[] args){
+    	System.out.println(createNonceStr());
     }
 	
     private static String toHex(byte[] bytes) {

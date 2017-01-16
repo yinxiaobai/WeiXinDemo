@@ -4,7 +4,10 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import org.dom4j.DocumentException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import com.weixin.one.config.WeiConfig;
 import com.weixin.one.pay.services.OrderServices;
 import com.weixin.one.utils.Tool;
 
@@ -13,6 +16,9 @@ import com.weixin.one.utils.Tool;
  * @author jq.yin@i-vpoints.com
  */
 public class WXSign {
+	
+	private static final Logger log = LoggerFactory.getLogger(WXSign.class);
+	
 	/*
 	 * fish+ appid: wx17e761a386e1c903 
 	 * mchId:1432577602	
@@ -26,21 +32,21 @@ public class WXSign {
 	 * openid:
 	 */
 	static String key = "cb60803fe1e9cc56164684e040b2bbc0";
-	static String appid = "wx17e761a386e1c903";
-	static String mchId = "1432577602";
+	static String appid = WeiConfig.get("fish.appId");
+	static String mchId = WeiConfig.get("fish.mch_id");
     public static Map<String,String> sign() {
-    	String appId = appid;
     	String nonceStr = "asdacsd33fsfsdf";
     	String body = "中信春节观影";
     	String outTradeNo = System.currentTimeMillis() + "";
     	// outTradeNo = "1478523690";
     	int totalFee = 1;
     	String spbillCreateIp = "123.12.12.123";
-    	String notifyUrl = "http://fishplusdev.i-vpoints.com/WeiXinDemo/pay";
-    	String tradeType  = "JSAPI";//"NATIVE";//"JSAPI";
+    	String notifyUrl = "http://fishplusdev.i-vpoints.com/WeiXinDemo/create/pay";
+    	String tradeType  = "NATIVE";//"JSAPI";
     	String openid = "o921QxGwyiXRxJ1SuTIktWnMitXk";
+//    	openid = "oE-EQxOiS_r_bI2mYxXBmiC39lPc";
     	Map<String,String> signMap = new TreeMap<String,String>();
-    	signMap.put("appid", appId);
+    	signMap.put("appid", appid);
     	signMap.put("mch_id", mchId);
     	signMap.put("nonce_str", nonceStr);
     	signMap.put("body", body);
@@ -50,6 +56,7 @@ public class WXSign {
     	signMap.put("notify_url", notifyUrl);
     	signMap.put("trade_type", tradeType);
     	signMap.put("openid", openid);
+    	signMap.put("device_info", "");
     	return getMd5(key, signMap);
     }
 
@@ -64,16 +71,18 @@ public class WXSign {
 			Map<String, String> signMap) {
 		StringBuilder sb = new StringBuilder();
     	for(String keyMap : signMap.keySet()){
-    		sb.append(keyMap).append("=").append(signMap.get(keyMap)).append("&");
+    		if(signMap.get(keyMap) != null && !"".equals(signMap.get(keyMap))){
+    			sb.append(keyMap).append("=").append(signMap.get(keyMap)).append("&");
+    		}
     	}
     	String param = sb.toString();
     	if("&".equals(param.substring(param.length()-1))){
     		param = param.substring(0, param.length()-1);
     	}
     	param += "&key="+key;
-    	System.out.println(param);
+    	log.info("param:"+param);
     	String sign = Tool.md5(param).toUpperCase();
-    	System.out.println("sign:"+sign);
+    	log.info("sign:"+sign);
     	signMap.put("sign", sign);
 		return signMap;
 	}
