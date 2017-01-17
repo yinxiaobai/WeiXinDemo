@@ -10,7 +10,7 @@ import com.weixin.one.config.WeiConfig;
 
 /**
  * 坐标api相关
- * 
+ * XXX
  * @date 2016年12月26日下午5:50:39
  * @author hp
  * 

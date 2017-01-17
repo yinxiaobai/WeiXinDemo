@@ -1,4 +1,4 @@
-package com.weixin.one.utils;
+package com.weixin.one.services.message;
 
 /**
  * 消息接收类

@@ -11,7 +11,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.weixin.one.services.menu.MenuService;
 import com.weixin.one.services.qrcode.CreateTicket;
 import com.weixin.one.utils.MapApi;
-import com.weixin.one.utils.MessageUtil;
 
 /**
  * 微信端消息处理

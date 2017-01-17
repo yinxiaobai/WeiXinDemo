@@ -153,18 +153,33 @@ public class Tool {
 	}
 
 	/**
-	 * 生成随机字符串
+	 * 生成UUID
 	 * 
 	 * @date 2017年1月12日下午5:25:26
 	 * @return
 	 * @author jq.yin@i-vpoints.com
 	 */
-	public static String createNonceStr() {
+	public static String getUUID() {
 		return UUID.randomUUID().toString();
 	}
 
-	public static void main(String[] args) {
-		System.out.println(createNonceStr());
+	/**
+	 * 生成32为随机字符串
+	 * (UUID去掉'-')
+	 * 
+	 * @date 2017年1月12日下午5:25:26
+	 * @return
+	 * @author jq.yin@i-vpoints.com
+	 */
+	public static String getNonceStr() {
+		String str = UUID.randomUUID().toString();
+		return str.substring(0, 8) + str.substring(9, 13)
+				+ str.substring(14, 18) + str.substring(19, 23)
+				+ str.substring(24);
 	}
 
+	public static void main(String[] args) {
+		System.out.println(getUUID());
+		System.out.println(getNonceStr());
+	}
 }

@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import com.weixin.one.config.WeiConfig;
 import com.weixin.one.pay.services.OrderServices;
 import com.weixin.one.utils.EncryptUtil;
+import com.weixin.one.utils.Tool;
 
 /**
  * @date 2017年1月12日下午1:09:29
@@ -45,14 +46,14 @@ public class WXSign {
 	 * @author jq.yin@i-vpoints.com
 	 */
 	public static Map<String, String> sign() {
-		String nonceStr = "asdacsd33fsfsdf";
-		String body = "中信春节观影";
+		String body = "中信春节观影";								// 商品描述
+		String notifyUrl = "http://fishplusdev.i-vpoints.com/WeiXinDemo/create/pay";	// 回调地址
+		int totalFee = 1;										// 金额	单位:分
+		String tradeType = "NATIVE";// "JSAPI";					// 支付方式
+		String openid = "o921QxGwyiXRxJ1SuTIktWnMitXk";			// 支付方式为NATIVE(扫码支付)时必填
+		String spbillCreateIp = "123.12.12.123";				// 终端IP XXX 
+		String nonceStr = Tool.getNonceStr();
 		String outTradeNo = System.currentTimeMillis() + "";
-		int totalFee = 1;
-		String spbillCreateIp = "123.12.12.123";
-		String notifyUrl = "http://fishplusdev.i-vpoints.com/WeiXinDemo/create/pay";
-		String tradeType = "NATIVE";// "JSAPI";
-		String openid = "o921QxGwyiXRxJ1SuTIktWnMitXk";
 		// openid = "oE-EQxOiS_r_bI2mYxXBmiC39lPc";
 		Map<String, String> signMap = new TreeMap<String, String>();
 		signMap.put("appid", appid);
@@ -65,7 +66,6 @@ public class WXSign {
 		signMap.put("notify_url", notifyUrl);
 		signMap.put("trade_type", tradeType);
 		signMap.put("openid", openid);
-		signMap.put("device_info", "");
 		return getMd5(key, signMap);
 	}
 
