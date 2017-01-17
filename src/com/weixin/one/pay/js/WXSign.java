@@ -82,6 +82,7 @@ public class WXSign {
 	 */
 	private static Map<String, String> getMd5(String key,
 			Map<String, String> signMap) {
+		log.info("【进行MD5加密】");
 		StringBuilder sb = new StringBuilder();
 		for (String keyMap : signMap.keySet()) {
 			if (signMap.get(keyMap) != null
