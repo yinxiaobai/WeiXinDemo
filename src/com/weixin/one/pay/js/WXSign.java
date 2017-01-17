@@ -52,7 +52,7 @@ public class WXSign {
 		String tradeType = "NATIVE";// "JSAPI";					// 支付方式
 		String openid = "o921QxGwyiXRxJ1SuTIktWnMitXk";			// 支付方式为NATIVE(扫码支付)时必填
 		String spbillCreateIp = "123.12.12.123";				// 终端IP XXX 
-		String nonceStr = Tool.getNonceStr();
+		String nonceStr = Tool.getNonceStr();					// 随机字符串
 		String outTradeNo = System.currentTimeMillis() + "";
 		// openid = "oE-EQxOiS_r_bI2mYxXBmiC39lPc";
 		Map<String, String> signMap = new TreeMap<String, String>();
@@ -114,12 +114,11 @@ public class WXSign {
 		try {
 			prepay_id = OrderServices.createOrder().get("prepay_id");
 		} catch (DocumentException e) {
-			e.printStackTrace();
+			log.error(e.getMessage(),e);
 		}
 
-		String appId = appid;
-		String timeStamp = "1478852399";
-		String nonceStr = "6fd4632f-b12c-4593-be6e-b6bcd1eedbca";
+		String timeStamp = System.currentTimeMillis() + "";
+		String nonceStr = Tool.getNonceStr();
 		String package1 = "prepay_id=" + prepay_id;
 		String signType = "MD5";
 
@@ -129,7 +128,7 @@ public class WXSign {
 		// timeStamp = "1484296195";
 
 		Map<String, String> map = new TreeMap<String, String>();
-		map.put("appId", appId);
+		map.put("appId", appid);
 		map.put("timeStamp", timeStamp);
 		map.put("nonceStr", nonceStr);
 		map.put("package", package1);

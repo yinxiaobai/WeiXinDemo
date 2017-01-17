@@ -54,8 +54,10 @@ public class PayController {
 	public String createOrder (Model model){
 		log.info("【create request】");
 		Map<String,String> map = WXSign.getPaySign();
+		if(map != null){
+			log.info("【开始支付】");
+		}
 		model.addAttribute("pack",map.get("package"));
-		model.addAttribute("paySign",map.get("sign"));
 		model.addAttribute("map",map);
 		return "pay";
 	}
