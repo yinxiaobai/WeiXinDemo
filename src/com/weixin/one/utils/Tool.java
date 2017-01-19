@@ -44,7 +44,7 @@ public class Tool {
 	 * @return
 	 * @author jq.yin@i-vpoints.com
 	 */
-	public static String getURLString(String str) {
+	public static String getURLEncoder(String str) {
 		try {
 			str = URLEncoder.encode(str, "UTF-8");
 		} catch (UnsupportedEncodingException e) {

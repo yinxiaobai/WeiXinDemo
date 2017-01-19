@@ -83,8 +83,8 @@ public class MenuService {
 	 */
 	public static String createMenu(){
 		log.info("【开始创建自定义菜单】");
-		String baseurl1 = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+WeiConfig.get("weixin.appid")+"&redirect_uri="+Tool.getURLString(backUrl)+"&response_type=code&scope="+snsapiType1+"&state=123#wechat_redirect";
-		String baseurl2 = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+WeiConfig.get("weixin.appid")+"&redirect_uri="+Tool.getURLString(backUrl)+"&response_type=code&scope="+snsapiType2+"&state=123#wechat_redirect";
+		String baseurl1 = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+WeiConfig.get("weixin.appid")+"&redirect_uri="+Tool.getURLEncoder(backUrl)+"&response_type=code&scope="+snsapiType1+"&state=123#wechat_redirect";
+		String baseurl2 = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+WeiConfig.get("weixin.appid")+"&redirect_uri="+Tool.getURLEncoder(backUrl)+"&response_type=code&scope="+snsapiType2+"&state=123#wechat_redirect";
 
 		String url = WeiConfig.get("create_menu.url") + single.getAccess_token();
 		// 请求参数
@@ -360,7 +360,7 @@ public class MenuService {
 		// createMenu();
 		// deleteMenu();
 
-		Tool.getURLString(backUrl);
+		Tool.getURLEncoder(backUrl);
 		System.out.println(backUrl);
 	}
 }
