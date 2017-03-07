@@ -4,6 +4,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
+ * 加密类
+ * 
  * @date 2017年1月16日上午11:47:55
  * @author jq.yin@i-vpoints.com
  */

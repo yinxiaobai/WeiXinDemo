@@ -38,4 +38,5 @@ public class CoreWei {
 		// 请求处理
 		CoreService.messageDo(request, response);
 	}
+	
 }

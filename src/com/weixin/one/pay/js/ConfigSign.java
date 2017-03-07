@@ -8,10 +8,10 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.io.UnsupportedEncodingException;
 
-public class Sign {
+public class ConfigSign {
 	@SuppressWarnings("rawtypes")
 	public static void main(String[] args) {
-		String jsapi_ticket = "kgt8ON7yVITDhtdwci0qedfX4Q2k8I7Ycrv5we-MiMLmewegIQfrd72PI0c1cuKQgJeOCNpGhTdkPT7RDDuxSw";
+		String jsapi_ticket = "kgt8ON7yVITDhtdwci0qeZzW7HhUZqTMeDGi5N46zVjvgVSRoQ2JkOUDlM-Tl6vRZANZ4ma-KBaHB4q97EE9kw";
 
 		// 注意 URL 一定要动态获取，不能 hardcode
 		String url = "http://fishplusdev.i-vpoints.com/WeiXinDemo/create";
@@ -21,6 +21,14 @@ public class Sign {
 		}
 	};
 
+	/**
+	 * 
+	 * @date 2017年3月7日下午1:45:16
+	 * @param jsapi_ticket
+	 * @param url
+	 * @return
+	 * @author jq.yin@i-vpoints.com
+	 */
 	public static Map<String, String> sign(String jsapi_ticket, String url) {
 		Map<String, String> ret = new HashMap<String, String>();
 		String nonce_str = create_nonce_str();

@@ -85,6 +85,6 @@ public class PayController {
 	
 	public static void main(String[] args) {
 		String s = "BestChoice";
-		System.out.println(EncryptUtil.md5(s));// cb60803fe1e9cc56164684e040b2bbc0
+		System.out.println(EncryptUtil.md5(s));/* cb60803fe1e9cc56164684e040b2bbc0 */
 	}
 }

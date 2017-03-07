@@ -163,7 +163,7 @@ public class UrlUtils {
 			// Read from the connection. Default is true.
 			connection.setDoInput(true);
 			// 默认为GET
-			// connection.setRequestMethod("POST"); //不写也可 ？
+			connection.setRequestMethod("POST"); //不写也可 ？
 			// 获取URLConnection对象对应的输出流
 			out = new PrintWriter(connection.getOutputStream());
 			// 发送请求参数
@@ -216,7 +216,7 @@ public class UrlUtils {
 
 		// 设置参数
 		StringEntity stringEntity = new StringEntity(param, "UTF-8");
-		// 正文是urlencoded编码过的form参数，下面我们可以看到我们对正文内容使用URLEncoder.encode
+		// 正文是URLEncoded编码过的form参数，下面我们可以看到我们对正文内容使用URLEncoder.encode
 		stringEntity.setContentType("application/x-www-form-urlencoded");
 		httpPost.setEntity(stringEntity);
 

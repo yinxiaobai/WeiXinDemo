@@ -49,8 +49,8 @@ public class CoreService {
 			ReceiveService.getMessage(msgMap, response);
 
 		} else { //不会出现
-			// throw new RuntimeException("未知错误!!!");	
-			log.error("未知异常!");
+			throw new RuntimeException("未知错误!!!");	
+			// log.error("未知异常!");
 		}
 	}
 }

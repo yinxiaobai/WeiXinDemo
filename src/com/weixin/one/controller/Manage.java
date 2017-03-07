@@ -26,4 +26,9 @@ public class Manage {
 	public void menu(String todo, String... button) {
 		
 	}
+	
+	@RequestMapping("grant")
+	public String grant(){
+		return "pay";
+	}
 }

@@ -25,6 +25,7 @@ public class SendMessageService {
 	 *            消息接收者openId
 	 * @param content
 	 *            回复文本内容
+	 * @return 请求微信端文本消息	xml格式
 	 * @author jq.yin@i-vpoints.com
 	 */
 	public static String sendText(String openId, String fromUserName,

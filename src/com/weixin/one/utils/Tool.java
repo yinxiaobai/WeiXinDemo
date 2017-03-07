@@ -63,7 +63,6 @@ public class Tool {
 	 * 		接收到的微信端消息明文
 	 * @author jq.yin@i-vpoints.com
 	 */
-	@SuppressWarnings("unchecked")
 	public static Map<String, String> receiveMessage(
 			HttpServletRequest request) {
 
@@ -71,6 +70,7 @@ public class Tool {
 		SAXReader reader = new SAXReader();
 
 		try {
+			// 接收微信端消息
 			InputStream is = request.getInputStream();
 			Document doc = reader.read(is);
 			Element root = doc.getRootElement();
@@ -97,6 +97,7 @@ public class Tool {
 			}
 
 			// 封装Map
+			@SuppressWarnings("unchecked")
 			List<Element> list = root.elements();
 			for (Element e : list) {
 				map.put(e.getName(), e.getText());

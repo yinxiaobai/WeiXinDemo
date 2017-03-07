@@ -40,7 +40,7 @@ public class BackController {
 				+ WeiConfig.get("weixin.appid") + "&secret="
 				+ WeiConfig.get("weixn.secret") + "&code=" + code
 				+ "&grant_type=authorization_code";
-		
+
 		// 获得access_token和openId
 		String resultJson = UrlUtils.urlGet(url);
 		JSONObject jsonObject = JSONObject.parseObject(resultJson);
@@ -57,6 +57,7 @@ public class BackController {
 		String userInfo = UrlUtils.urlGet(userUrl);
 		log.info("用户信息:" + userInfo);
 		model.addAttribute("userInfo", JSONObject.parse(userInfo));
+		
 		/*
 		 * String url2 =
 		 * "http://fishplus.i-vpoints.com/fishplus/wechat/auth/userAuth";
