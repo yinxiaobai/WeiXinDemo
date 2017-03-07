@@ -144,7 +144,7 @@ public class UrlUtils {
 		log.info("【开始发送post请求】");
 		PrintWriter out = null;
 		BufferedReader in = null;
-		StringBuffer sb = new StringBuffer();
+		StringBuffer sb = new StringBuffer("\n");
 		try {
 			URL url = new URL(urlStr);
 			// 打开和URL之间的连接
@@ -182,7 +182,7 @@ public class UrlUtils {
 					new InputStreamReader(connection.getInputStream()));
 			String line;
 			while ((line = in.readLine()) != null) {
-				sb.append(line);
+				sb.append(line).append("\n");
 			}
 		} catch (Exception e) {
 			log.error("发送 POST 请求出现异常！", e);

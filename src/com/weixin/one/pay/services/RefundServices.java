@@ -35,7 +35,7 @@ public class RefundServices {
 		log.info(refoudXml);
 		
 		String refundURL = "https://api.mch.weixin.qq.com/secapi/pay/refund";
-		String result = UrlUtils.sendPost(refundURL, refoudXml);
+		String result = UrlUtils.sendHttpPost(refundURL, refoudXml);
 		log.info("退款结果:" + result);
 	}
 

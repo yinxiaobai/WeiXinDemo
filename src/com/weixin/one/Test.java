@@ -8,7 +8,8 @@ import com.weixin.one.utils.UrlUtils;
  */
 public class Test {
 	public static void main(String[] args) {
-		test01();
+		// test01();
+		test02();
 		/*Callable<String> cal = new Callable<String>() {
 
 			@Override
@@ -32,4 +33,10 @@ public class Test {
 		System.out.println(res);
 	}
 	
+	public static void test02 () {
+		String url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN";
+		url = "https://www.baidu.com";
+		String result = UrlUtils.sendHttpPost(url, "");
+		System.out.println("^^^^^^^^^^^^^^^^^^^>>>>>>>>>>>>>>>>>" + result);
+	}
 }
