@@ -114,13 +114,5 @@ public class MapApi {
 		log.info(map.toString());
 		return map;
 	}
-
-	public static void main(String[] args) {
-		WeiConfig.init();
-		String x = "31.270830";
-		String y = "121.386482";
-		txMap(x, y);
-		// bdMap(x, y);
-		// xzWeather(x, y);
-	}
+	
 }

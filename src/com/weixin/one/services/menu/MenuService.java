@@ -28,11 +28,11 @@ public class MenuService {
 	static String snsapiType1 = "snsapi_base";
 	static String snsapiType2 = "snsapi_userinfo";
 	
-	static String backUrl = "http://xiaobai.5166.info/WeiXinDemo/test";
+	static String backUrl = "http://fishplusdev.i-vpoints.com/WeiXinDemo/test";
 	
 	/**
-	 *  TODO
-	 *  <未使用>
+	 * TODO
+	 * <未使用>
 	 * 创建公众号自定义菜单
 	 * @date 2016年12月28日下午3:53:16
 	 * @return

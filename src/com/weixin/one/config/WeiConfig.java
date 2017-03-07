@@ -14,8 +14,6 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.stereotype.Service;
 
-import com.qq.weixin.mp.aes.AesException;
-import com.qq.weixin.mp.aes.WXBizMsgCrypt;
 import com.weixin.one.services.AccessTokenService;
 
 /**
@@ -30,9 +28,9 @@ public class WeiConfig {
 
 	private static final String PRO_NAME = "config.properties";
 
-	public static Properties pro;
+	private static Properties pro;
 	// 定时器周期
-	private static final long PERIOD  = 1000 * 60 * 90;
+	private static final long PERIOD = 1000 * 60 * 90;
 
 	/**
 	 * 加载配置
@@ -42,7 +40,7 @@ public class WeiConfig {
 	 * @author jq.yin@i-vpoints.com
 	 */
 	@PostConstruct // 启动项目自动加载
-	public static void init() {
+	private void init() {
 		log.info("【加载配置】");
 		Resource resource = new ClassPathResource(PRO_NAME);
 		try {
@@ -77,7 +75,7 @@ public class WeiConfig {
 	}
 
 	/**
-	 * 获取配置文件参数值
+	 * 获取配置文件参数值，获取不到则返回默认值
 	 * 
 	 * @date 2016年12月20日下午4:23:45
 	 * @param key
@@ -89,19 +87,6 @@ public class WeiConfig {
 	 */
 	public static String get(String key, String defaultValue) {
 		return pro.getProperty(key, defaultValue);
-	}
-
-	/**
-	 * 获得微信加解密所需WXBizMsgCrypt对象
-	 * 
-	 * @date 2017年1月5日下午5:52:32
-	 * @return
-	 * @throws AesException
-	 * @author jq.yin@i-vpoints.com
-	 */
-	public static WXBizMsgCrypt getWXBizMsgCrypt() throws AesException {
-		return new WXBizMsgCrypt(WeiConfig.get("weixin.token"),
-				WeiConfig.get("EncodingAESKey"), WeiConfig.get("weixin.appid"));
 	}
 
 }

@@ -4,9 +4,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
 import com.weixin.one.config.WeiConfig;
@@ -16,14 +16,14 @@ import com.weixin.one.utils.UrlUtils;
  * @date 2017年1月10日下午4:26:55
  * @author jq.yin@i-vpoints.com
  */
-@Controller
+@RestController
 public class BackController {
 
 	private static final Logger log = LoggerFactory
 			.getLogger(BackController.class);
 
 	/**
-	 * 授权获取用户信息
+	 * 授权回调获取用户信息
 	 * 
 	 * @date 2017年1月16日下午2:26:52
 	 * @param request
@@ -40,8 +40,7 @@ public class BackController {
 				+ WeiConfig.get("weixin.appid") + "&secret="
 				+ WeiConfig.get("weixn.secret") + "&code=" + code
 				+ "&grant_type=authorization_code";
-		// String url =
-		// "https://api.weixin.qq.com/sns/oauth2/access_token?appid="+WeiConfig.get("fish.appId")+"&secret="+WeiConfig.get("fish.appSecret")+"&code="+code+"&grant_type=authorization_code";
+		
 		// 获得access_token和openId
 		String resultJson = UrlUtils.urlGet(url);
 		JSONObject jsonObject = JSONObject.parseObject(resultJson);
@@ -50,7 +49,7 @@ public class BackController {
 		log.info("openId相关信息:" + resultJson);
 		if (openid == null) {
 			log.info("【openid获取失败】");
-			return "page";
+			return resultJson;
 		}
 		// 获取用户信息
 		String userUrl = "https://api.weixin.qq.com/sns/userinfo?access_token="
@@ -66,7 +65,7 @@ public class BackController {
 		 * String res = UrlUtils.sendPost(url2, param);
 		 * log.info("res::"+res);
 		 */
-		return "page";
+		return userInfo;
 	}
 
 }

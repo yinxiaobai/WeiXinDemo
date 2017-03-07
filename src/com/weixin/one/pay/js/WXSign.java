@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 
 import com.weixin.one.config.WeiConfig;
 import com.weixin.one.pay.services.OrderServices;
-import com.weixin.one.utils.EncryptUtil;
 import com.weixin.one.utils.Tool;
 
 /**
@@ -34,7 +33,7 @@ public class WXSign {
 	 * key: abcdefghijklmnopqrstuvwxyz123456
 	 * openid:
 	 */
-	static String key = WeiConfig.get("fish.key");
+	public static String key = WeiConfig.get("fish.key");
 	static String appid = WeiConfig.get("fish.appId");
 	static String mchId = WeiConfig.get("fish.mch_id");
 
@@ -49,7 +48,7 @@ public class WXSign {
 		String body = "中信春节观影";								// 商品描述
 		String notifyUrl = "http://fishplusdev.i-vpoints.com/WeiXinDemo/create/pay";	// 回调地址
 		int totalFee = 1;										// 金额	单位:分
-		String tradeType = "NATIVE";// "JSAPI";					// 支付方式
+		String tradeType = "JSAPI";// "NATIVE";					// 支付方式
 		String openid = "o921QxGwyiXRxJ1SuTIktWnMitXk";			// 支付方式为NATIVE(扫码支付)时必填
 		String spbillCreateIp = "123.12.12.123";				// 终端IP XXX 
 		String nonceStr = Tool.getNonceStr();					// 随机字符串
@@ -66,41 +65,7 @@ public class WXSign {
 		signMap.put("notify_url", notifyUrl);
 		signMap.put("trade_type", tradeType);
 		signMap.put("openid", openid);
-		return getMd5(key, signMap);
-	}
-
-	/**
-	 * 对微信支付请求参数进行加密
-	 * 
-	 * @date 2017年1月13日上午10:35:26
-	 * @param key
-	 *            商户密钥
-	 * @param signMap
-	 *            请求参数集合 Ascll排序
-	 * @return 含有加密字符串的请求参数集合
-	 * @author jq.yin@i-vpoints.com
-	 */
-	private static Map<String, String> getMd5(String key,
-			Map<String, String> signMap) {
-		log.info("【进行MD5加密】");
-		StringBuilder sb = new StringBuilder();
-		for (String keyMap : signMap.keySet()) {
-			if (signMap.get(keyMap) != null
-					&& !"".equals(signMap.get(keyMap))) {
-				sb.append(keyMap).append("=").append(signMap.get(keyMap))
-						.append("&");
-			}
-		}
-		String param = sb.toString();
-		if ("&".equals(param.substring(param.length() - 1))) {
-			param = param.substring(0, param.length() - 1);
-		}
-		param += "&key=" + key;
-		log.info("param:" + param);
-		String sign = EncryptUtil.md5(param).toUpperCase();
-		log.info("sign:" + sign);
-		signMap.put("sign", sign);
-		return signMap;
+		return Tool.getMd5(key, signMap);
 	}
 
 	/**
@@ -123,10 +88,10 @@ public class WXSign {
 		String package1 = "prepay_id=" + prepay_id;
 		String signType = "MD5";
 
-		// appId = "wx17e761a386e1c903";
-		// nonceStr = "YATqa3l6WBMaDb4E";
-		// package1 = "prepay_id=wx20170113162959e7f6b016260503267161";
-		// timeStamp = "1484296195";
+		/*appid = "wx17e761a386e1c903";
+		nonceStr = "Oi2aYznjYXpTcsE5";
+		package1 = "prepay_id=wx201703061708256b1ec73e560639657044";
+		timeStamp = "1488791305";*/
 
 		Map<String, String> map = new TreeMap<String, String>();
 		map.put("appId", appid);
@@ -134,13 +99,15 @@ public class WXSign {
 		map.put("nonceStr", nonceStr);
 		map.put("package", package1);
 		map.put("signType", signType);
-		return getMd5(key, map);
+		return Tool.getMd5(key, map);
 	}
 
 	public static void main(String[] args) {
 		// System.out.println(sign().get("sign"));
 		// System.out.println(Tool.createNonceStr());
 		System.out.println("paySign:" + getPaySign().get("sign"));
+		/*String a = "appId=wx17e761a386e1c903&nonceStr=cF6YfFrngxXLLlfW&package=prepay_id=wx201703061653558de251665e0818102315&signType=MD5&timeStamp=1488790435&key=cb60803fe1e9cc56164684e040b2bbc0";
+		System.out.println(EncryptUtil.md5(a).toUpperCase());*/
 	}
 
 }

@@ -57,6 +57,7 @@ public class AccessTokenService {
 		// 有效时间 单位:s
 		access_token = map.get("access_token");
 		if ("".equals(access_token) || access_token == null) {
+			log.error(map.toString());
 			throw new RuntimeException("【获取access_token失败】");
 		}
 		log.info("获取access_token成功:"+access_token);
@@ -67,11 +68,4 @@ public class AccessTokenService {
 		return access_token;
 	}
 	
-
-	public static void main(String[] args) {
-		log.info("start");
-		WeiConfig.init();
-		System.out.println(new AccessTokenService().getAccess_token());
-		// log.info("access_token:" + access_token);
-	}
 }

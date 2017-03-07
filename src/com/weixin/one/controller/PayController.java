@@ -43,6 +43,7 @@ public class PayController {
 					+ "<return_code><![CDATA["+map.get("return_code")+"]]></return_code>"
 					+ "<return_msg><![CDATA["+map.get("return_msg")+"]]></return_msg></xml>";
 			out.println(returnXml);
+			out.close();
 		} catch (IOException e) {
 			log.error(e.getMessage(),e);
 		}

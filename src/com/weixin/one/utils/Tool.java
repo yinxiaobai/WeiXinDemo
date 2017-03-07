@@ -23,6 +23,7 @@ import org.xml.sax.InputSource;
 import com.qq.weixin.mp.aes.AesException;
 import com.qq.weixin.mp.aes.WXBizMsgCrypt;
 import com.thoughtworks.xstream.XStream;
+import com.weixin.one.config.CoreConfig;
 import com.weixin.one.config.WeiConfig;
 
 /**
@@ -84,7 +85,7 @@ public class Tool {
 				String msgSignature = request.getParameter("msg_signature");
 				// 获得密文信息
 				// 获得WXBizMsgCrypt对象
-				WXBizMsgCrypt pc = WeiConfig.getWXBizMsgCrypt();
+				WXBizMsgCrypt pc = CoreConfig.config.getBizMsgCrypt();
 				// 解密,获取明文信息 xml格式
 				String msg = pc.decryptMsg(msgSignature, timeStamp, nonce,
 						xmlStr);
@@ -145,7 +146,7 @@ public class Tool {
 	 * @param map
 	 * @return
 	 */
-	public static String MaptoXml(Map<String, String> map) {
+	public static String mapToXml(Map<String, String> map) {
 		XStream stream = new XStream();
 		stream.alias("xml", map.getClass());
 		String xml = stream.toXML(map);
@@ -178,6 +179,40 @@ public class Tool {
 				+ str.substring(24);
 	}
 
+	/**
+	 * 对微信支付请求参数进行加密
+	 * 
+	 * @date 2017年1月13日上午10:35:26
+	 * @param key
+	 *            商户密钥
+	 * @param signMap
+	 *            请求参数集合 Ascll排序
+	 * @return 含有加密字符串的请求参数集合
+	 * @author jq.yin@i-vpoints.com
+	 */
+	public static Map<String, String> getMd5(String key,
+			Map<String, String> signMap) {
+		log.info("【进行MD5加密】");
+		StringBuilder sb = new StringBuilder();
+		for (String keyMap : signMap.keySet()) {
+			if (signMap.get(keyMap) != null
+					&& !"".equals(signMap.get(keyMap))) {
+				sb.append(keyMap).append("=").append(signMap.get(keyMap))
+						.append("&");
+			}
+		}
+		String param = sb.toString();
+		if ("&".equals(param.substring(param.length() - 1))) {
+			param = param.substring(0, param.length() - 1);
+		}
+		param += "&key=" + key;
+		log.info("param:" + param);
+		String sign = EncryptUtil.md5(param).toUpperCase();
+		log.info("sign:" + sign);
+		signMap.put("sign", sign);
+		return signMap;
+	}
+	
 	public static void main(String[] args) {
 		System.out.println(getUUID());
 		System.out.println(getNonceStr());

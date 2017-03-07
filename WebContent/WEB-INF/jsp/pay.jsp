@@ -53,7 +53,7 @@
 			// var str = eval("("+res+")");
 			// alert(str);
 			// alert(str.err_msg);
-			// alert(res.err_desc);
+			alert(res.err_desc);
 			if (res.err_msg == "get_brand_wcpay_request:ok") {
 				alert("支付成功");
 			}else if(res.err_msg == "get_brand_wcpay_request:cancel"){
